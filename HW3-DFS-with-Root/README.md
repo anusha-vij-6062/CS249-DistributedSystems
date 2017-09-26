@@ -9,7 +9,7 @@ This program simulates the DFS Spanning Tree Algorithm with specified root. The 
 The <already> and <parent> messages are used to pass messages back to the parent and eventually to the root, singaling the end of the algorithm. The message <parent> is used to singal to a parent node to add nodes to its children list. The message <already> is used to signal to a node that a node already has a parent.
 The input to the program is a graph where each node is a processor and the edges represent connections. This graph is represented by a HashMap in Main, where for each entry, the key is a Processor, and the value is a list of Processors that are adjacent to (connected to) that processor.
 
-###Running the program:
+###Running the program :
 
 1. Save all of the source code (Buffer.java, Main.java, Message.java, and Processor.java) to the same directory. 
 2. Change directory (cd) to the directory containing all the source codes.
