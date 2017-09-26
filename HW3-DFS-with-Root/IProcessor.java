@@ -1,10 +1,15 @@
+/**
+* Interface that encapsulates all the public methods of Processors or any 
+* class that is to be compatabile.
+*/
+
 import java.util.List;
 
 public interface IProcessor {
-     void printChildren(); //Needed
-     Integer getId(); //needed
-     void setUnexplored(List<IProcessor> unexplored); //needed
-     void sendMessageToMyBuffer(Message message,IProcessor p); //needed
-     IProcessor getParent(); //Needed
-     void setParent(IProcessor parent); //needed
+     void printChildren(); 
+     Integer getId(); 
+     void setUnexplored(List<IProcessor> unexplored); 
+     void sendMessageToMyBuffer(Message message,IProcessor p);
+     IProcessor getParent();
+     void setParent(IProcessor parent);
 }

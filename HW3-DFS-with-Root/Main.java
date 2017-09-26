@@ -14,11 +14,20 @@ class Main {
         return rootId;
     }
 
+	/**
+	* Constructor for Main class. Which stores the processors and 
+	* a reference to the root. 
+	* @param rootId the id for the root node.
+	*/
     Main(int rootId){
         this.rootId=rootId;
         init();
     }
 
+	/**
+	* Calls init() to initailize the network and sends a message to the rootId
+	* to set off the algorithm. Then prints the resulting tree.
+	*/
     public static void main ( String args[]){
         Main m = new Main(0);
         //TODO: Choose a processor as a Root
@@ -30,6 +39,9 @@ class Main {
         m.printTree();
     }
 
+	/**
+	* Prints the final tree (each node and its parent).
+	*/
     public void printTree()
     {
         System.out.println("--------------PRINTING TREE----------------");
@@ -41,6 +53,10 @@ class Main {
 
         System.out.println("\n-----------------------------------------");
     }
+	
+	/**
+	* This method creates the processes and initializes the network graph.
+	*/
     public void init(){
         graph=new HashMap<IProcessor,List<IProcessor>>();
         p0=new Processor(0);
@@ -49,7 +65,6 @@ class Main {
         p3=new Processor(3);
         p4=new Processor(4);
         p5=new Processor(5);
-
 
         processorsList = new ArrayList<>(Arrays.asList(p0,p1,p2,p3,p4,p5));
 
@@ -76,8 +91,6 @@ class Main {
         neighbour=new ArrayList<>(Arrays.asList(p2,p4));
         p5.setUnexplored(neighbour);
         graph.put(p5, (List<IProcessor>) neighbour.clone());
-
-
 
     }
 }
