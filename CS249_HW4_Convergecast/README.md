@@ -23,21 +23,21 @@ A binary tree is given with the assignment to be used as the input. The init() m
     	/   \
        7     5
       / \     \
-	 /   \     \
-	2     6  	9
+     /   \     \
+    2     6  	9
          / \    /
     	/   \  4
-       5	11
+       5    11
 
 For ease of reference, the nodes are labeled alphabetically as follows:
 
           na
          / \
-    	/   \
+ 	/   \
        nb     nc
       / \     \
-	 /   \     \
-	nd    ne  	nf
+     /   \     \
+    nd    ne  	nf
          / \    /
     	/   \  ni
        ng	nh	   
