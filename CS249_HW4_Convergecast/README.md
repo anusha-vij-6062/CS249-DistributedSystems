@@ -17,6 +17,7 @@ The method forming the string concatenation of node values is similar. Instead o
 
 ###Input
 A binary tree is given with the assignment to be used as the input. The init() method within the Main class is used to initialize this tree. The tree is given as follows
+
           2
          / \
     	/   \
@@ -29,6 +30,7 @@ A binary tree is given with the assignment to be used as the input. The init() m
        5	11
 
 For ease of reference, the nodes are labeled alphabetically as follows:
+
           na
          / \
     	/   \
