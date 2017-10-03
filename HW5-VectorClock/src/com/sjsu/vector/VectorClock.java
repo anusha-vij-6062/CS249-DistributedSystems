@@ -18,22 +18,44 @@ public class VectorClock implements Comparable<VectorClock>{
         newCopy.vc=this.vc.clone();
         return newCopy;
     }
-
-
-    //Returns a negative integer, zero, or a positive integer as this object is less than, 
-    //equal to, or greater than the specified object.
+    
+    /**
+     * Compares the calling vector clock (this) with the vc o
+     * @return 0 if this vc is equal to o; -1 if this vc<o; +1 if this vc>o
+     * @param o the other vector clock "this" vc will be compared to
+     */
     @Override
     public int compareTo(VectorClock o) {
         // TODO implement a compare to method that will compare two vector clocks
         
-    	for (int i = 0; i < o.vc.length; i++) {
-            if (this.vc[i] < o.vc[i]) {
-                updateAt(i, o.vc[i]);
-                }
-        }
+    	//check for equality
+    	boolean isEqual = true;
         
-        return 0;
+        for(int i=0; i<o.vc.length;i++){
+    		if(this.vc[i]!=o.vc[i]){
+    			isEqual = false;
+    		}
+    	}
+        
+    	if(isEqual) return 0;
+    	
+    	//check if greater/less than
+    	boolean isSmaller = true;
+    	
+    	for(int i=0; i<o.vc.length;i++){
+    		if(this.vc[i]>o.vc[i]){
+    			isSmaller = false;
+    		}
+    	}
+    	
+    	if(isSmaller){
+    		return -1;
+    	}else{
+    		return 1;
+    	}
+
     }
+    
     /**
      * Based on a event vector clock will be incremented, changed or updated.
      * Which index should be updated will be decided by a processor
