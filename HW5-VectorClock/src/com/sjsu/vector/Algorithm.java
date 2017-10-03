@@ -1,6 +1,9 @@
 package com.sjsu.vector;
 
-import java.util.List;
+import static com.sjsu.vector.MessageType.RECIEVE;
+import static com.sjsu.vector.MessageType.SEND;
+
+
 /**
  * CS249 VectorClock Program
  * A skeleton code was provided on which we built-upon
@@ -8,79 +11,95 @@ import java.util.List;
  *
  */
 public class Algorithm{
-	int noOfProcessors;
-	Processor p0, p1, p2; // Assume there are three processors.
+    int noOfProcessors;
+    Processor p0, p1; // Assume there are three processors.
 
-	public Algorithm() {
-		super();
-		this.noOfProcessors = 3;
-		// TODO : initialize all the processors
-		p0 = new Processor(0, 3);
-		p1= new Processor(1, 3);
-		p2 = new Processor(2, 3);
-	}
+    public Algorithm() {
+        super();
+        this.noOfProcessors = 3;
+        // TODO : initialize all the processors
+        p0 = new Processor(0, 2);
+        p1= new Processor(1, 2);
+    }
 
-	// Write hard coded execution plan for processors
-	public void executionPlanForP0() {
-		// TODO: call events on P0 for compute.
-		// Call send events to send message
-		// Call receive messages
-		compute(p0, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi00
-		compute(p0, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi01
-		send(p1, p0, new Message(MessageType.RECIEVE,new VectorClock(3))); //phi02
-		compute(p0, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi03 
-		
-	}
+    // Write hard coded execution plan for processors
+    public void executionPlanForP0() throws InterruptedException {
+        //compute(p0, new Message(MessageType.COMPUTATION,p0.vc.clone()));
+        //compute(p0, new Message(MessageType.COMPUTATION,p0.vc.clone()));
+        send(p1, p0, new Message(SEND,p0.vc.clone()));
+        //compute(p0, new Message(MessageType.COMPUTATION,p0.vc.clone())); //phi03
+        
+        synchronized(this){
+        	System.out.println("\n------The final VECTOR CLOCK for process 0 is---");
+        	p0.vc.printVC();
+        }
 
-	// Write hard coded execution plan for processors
-	public void executionPlanForP1() {
-		// TODO: call events on P0 for compute.
-		// Call send events to send message
-		// Call receive messages
-		
-		compute(p1, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi10
-		compute(p1, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi11 
-		
-		receive(p1, p0); //phi12
-		System.out.println("!!!P1 receieved message from p0!!!");
-		
-		compute(p1, new Message(MessageType.COMPUTATION,new VectorClock(3))); //phi13
-		
-	}
+    }
 
-	// Write hard coded execution plan for processors
-	public void executionPlanForP2() {
-		// TODO: call events on P0 for compute.
-		// Call send events to send message
-		// Call receive messages
-	}
-	
-	/**
-	 * 
-	 * @param p
-	 * @param computeMessage
-	 */
-	public void compute(Processor p, Message computeMessage) {
-		// TODO: implement. What will be the value of vector clock passed to
-		// this message?
-		//p.sendMessageToMyBuffer(computeMessage);
-		
-		p.sendMessageToMyBuffer(computeMessage,p);
-	}
+    // Write hard coded execution plan for processors
+    public void executionPlanForP1() throws InterruptedException {
+        // TODO: call events on P0 for compute.
+        compute(p1, new Message(MessageType.COMPUTATION,p1.vc.clone()));//phi11
+        compute(p1, new Message(MessageType.COMPUTATION,p1.vc.clone()));
+        compute(p1, new Message(MessageType.COMPUTATION,p1.vc.clone()));
+        receive(p1, p0); //phi12
+        //compute(p1, new Message(MessageType.COMPUTATION,p1.vc.clone()));
+        
+        synchronized(this){
+        	System.out.println("\n----------The final VECTOR CLOCK for process 1 is----");
+        	p1.vc.printVC();
+        }
+    }
 
-	public void send(Processor to, Processor from, Message m) {
-		// TODO: implement. What will be the value of vector clock passed to
-		// this message?
-		
-		to.sendMessageToMyBuffer(m,from);
+    private void compute(Processor p, Message computeMessage) throws InterruptedException {
+        p.sendMessageToMyBuffer(computeMessage,p);
+    }
 
-	}
-	
-	synchronized public void receive(Processor to, Processor from){
-			
-		while(!((to.messageBuffer.getMessage()!=null) && (to.messageBuffer.getMessage().messageType.equals(MessageType.RECIEVE))));
-	
-	}
-			 
+    synchronized private void send(Processor to, Processor from, Message m) throws InterruptedException {
+            from.sendMessageToMyBuffer(m,from);
+            Message recieveMessage = new Message(RECIEVE,from.vc.clone());
+            to.sendMessageToMyBuffer(recieveMessage,from);
+            this.notify();
+        }
+
+
+    
+    synchronized private void receive(Processor receiver, Processor sender){
+    		if(receiver.savedProcess != null && receiver.savedProcess==sender){
+    			try {
+    				//receiver.calculateVectorClocks(observable, arg, recievedMessage);
+					receiver.sendMessageToMyBuffer(new Message(RECIEVE,receiver.testVC.clone()), sender);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
+    
+//    synchronized private void receive(Processor reciever,Processor sender) throws InterruptedException {
+//        if(reciever.messageBuffer.getMessage()==null || reciever.messageBuffer.getMessage().messageType!=RECIEVE)
+//        {
+//            if(reciever.sender!=sender) {
+//                this.wait();
+//            }
+//        }
+//
+//    }
+
 }
 
+/*
+Buffer b = to.messageBuffer;
+        //
+        if(to.savedProcess!=null && to.savedProcess.getId()==from.getId()){
+            System.out.printf("Need to consume the message");
+        }
+        synchronized (b) {
+            //if(b.getMessage().messageType!=RECIEVE || !b.hasChanged()){
+            if (!b.hasChanged()) {
+
+                System.out.printf("\n waiting to recieve from" + from.getId());
+                //from.messageBuffer.wait();
+            }
+        }
+ */

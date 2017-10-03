@@ -6,23 +6,29 @@ package com.sjsu.vector;
  *
  */
 public class Executor implements Runnable{
-	
-	Processor proc;
-	Algorithm algo;
-	
-	public Executor(Algorithm algo, Processor proc){
-		this.proc = proc;
-		this.algo = algo;
-	}
 
-	public void run(){
-		if(proc.getId()==0){
-			algo.executionPlanForP0();
-		}else if(proc.getId()==1){
-			algo.executionPlanForP1();
-		}else{
-			algo.executionPlanForP2();
-		}
-	}
-	
+    Processor proc;
+    Algorithm algo;
+
+    public Executor(Algorithm algo, Processor proc){
+        this.proc = proc;
+        this.algo = algo;
+    }
+
+    public void run(){
+        if(proc.getId()==0){
+            try {
+                algo.executionPlanForP0();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else if(proc.getId()==1){
+            try {
+                algo.executionPlanForP1();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
