@@ -12,14 +12,15 @@ import static com.sjsu.vector.MessageType.SEND;
  */
 public class Algorithm{
     int noOfProcessors;
-    Processor p0, p1; // Assume there are three processors.
+    Processor p0, p1, p2; // Assume there are three processors.
 
     public Algorithm() {
         super();
         this.noOfProcessors = 3;
         // TODO : initialize all the processors
-        p0 = new Processor(0, 2);
-        p1= new Processor(1, 2);
+        p0 = new Processor(0, 3);
+        p1= new Processor(1, 3);
+        p2 = new Processor(2, 3);
     }
 
     // Write hard coded execution plan for processors
@@ -50,6 +51,18 @@ public class Algorithm{
         	p1.vc.printVC();
         }
     }
+    
+    public void executionPlanForP2() throws InterruptedException{
+    	compute(p2, new Message(MessageType.COMPUTATION, p2.vc.clone()));
+    	compute(p2, new Message(MessageType.COMPUTATION, p2.vc.clone()));
+    	compute(p2, new Message(MessageType.COMPUTATION, p2.vc.clone()));
+    	compute(p2, new Message(MessageType.COMPUTATION, p2.vc.clone()));
+    	
+    	synchronized(this){
+        	System.out.println("\n----------The final VECTOR CLOCK for process 2 is----");
+        	p2.vc.printVC();
+        }
+    }
 
     private void compute(Processor p, Message computeMessage) throws InterruptedException {
         p.sendMessageToMyBuffer(computeMessage,p);
@@ -61,8 +74,6 @@ public class Algorithm{
             to.sendMessageToMyBuffer(recieveMessage,from);
             this.notify();
         }
-
-
     
     synchronized private void receive(Processor receiver, Processor sender){
     		if(receiver.savedProcess != null && receiver.savedProcess==sender){
