@@ -41,7 +41,7 @@ public class Buffer extends Observable {
     synchronized public void setMessage(Message message, Processor sender) throws InterruptedException {
         this.message = message;
         this.setChanged();
-        notifyObservers(sender);
+        notifyObservers();
 
     }
 
