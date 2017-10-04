@@ -1,5 +1,6 @@
 package com.sjsu.vector;
 
+
 import java.util.Observable;
 
 /**
@@ -19,7 +20,6 @@ public class Buffer extends Observable {
 
     /**
      * Creates buffer with message
-     *
      * @param message Message to be stored
      */
     public Buffer(Message message) {
@@ -37,25 +37,10 @@ public class Buffer extends Observable {
      * Sets message to null after the update method is called.
      * No need to notifyObserver() in this case.
      */
-    synchronized public void resetMessage(){
-    	this.message = null;
-    }
-    
-    /**
-     * Sets the message and notifies the observers with the sender node's information
-     *
-     * @param message         Message to be stored in the buffer
-     * @param //fromProcessor Node who sent the message
-     */
+
     synchronized public void setMessage(Message message, Processor sender) throws InterruptedException {
         this.message = message;
         this.setChanged();
-        //System.out.println("Message:: to be sent"+getMessage().messageType+"By"+sender.getId());
-//        if(message.messageType==MessageType.RECIEVE){
-//            synchronized (sender){
-//                sender.notify();
-//            }
-//        }
         notifyObservers(sender);
 
     }
