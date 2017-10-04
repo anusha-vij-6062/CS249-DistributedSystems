@@ -1,5 +1,4 @@
 package com.sjsu.vector;
-package com.company;
 import java.util.Observable;
 import java.util.Observer;
 
