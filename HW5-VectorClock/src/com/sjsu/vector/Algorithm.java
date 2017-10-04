@@ -1,6 +1,6 @@
 package com.sjsu.vector;
 
-import static com.company.MessageType.RECIEVE;
+import static com.sjsu.vector.MessageType.RECIEVE;
 
 /**
  * CS249 VectorClock Program
