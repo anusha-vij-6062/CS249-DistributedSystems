@@ -1,5 +1,24 @@
+# Vector Clock Program
+
+# Synopsis
+
+Impelmentation of vector clock for communicating processes. Each processor maintains a vector clock that is updated as events take place. As such, we can assigned each event of a particular process a vector clock value. The vector clock can be used to determine the "happen-before" relationships betweeen events. That is, if the vector clock of event A is less than the vector clock of event B (in that all entry of the vector clock array of A is less than that of B), then we can say definitively that event A happened before event B. The compareTo() method in the VectorClock class can be used to perform this check. 
+
+# Running the program
+
+The program can be run by importing the "src" folder into an IDE like Eclipse or IntelliJ. Alternatively, the program can be compiled and ran through a CLI terminal (provided the javac and java environmental variables are setup). To run the program from terminal, following the steps below:
+
+1. Ensure the 8 .java files are saved in a folder with the directory path "src/com/sjsu/vector". 
+2. Change directory into the "vector" folder that contains the 8 .java files. 
+3. Run the command "javac *.java" to compile the program. 
+4. Change directory our 3 levels to the "src" folder with the command "cd ../../../".
+5. Run the command "java com.sjsu.vector.Main" to run the program. 
+6. The output (like the example shown below) will be displayed in the terminal.
+
 # Input
+
 As given in the class slides<br>
+
 # Expected Output
 
 
