@@ -1,7 +1,5 @@
 package com.sjsu.vector;
 
-import static com.sjsu.vector.MessageType.RECIEVE;
-
 /**
  * CS249 VectorClock Program
  * A skeleton code was provided on which we built-upon
@@ -40,7 +38,7 @@ public class Algorithm {
         Thread.sleep(400);
         this.compute(p0, new Message(MessageType.COMPUTATION, p0.vc.clone()));
 
-        Thread.sleep(400);
+        Thread.sleep(600);
         synchronized (this) {
             System.out.println("\n------The final VECTOR CLOCK for process 0 is---");
             p0.vc.printVC();
@@ -63,7 +61,7 @@ public class Algorithm {
         Thread.sleep(300); //phi9 (p1 recieve from p2, then sends m to p1)
         this.recieveAndSend(p0, p1);
 
-        Thread.sleep(600);
+        Thread.sleep(1400);
         synchronized (this) {
             System.out.println("\n----------The final VECTOR CLOCK for process 1 is----");
             p1.vc.printVC();
@@ -93,7 +91,7 @@ public class Algorithm {
         Thread.sleep(300); //phi16
         this.compute(p2, new Message(MessageType.COMPUTATION, p2.vc.clone()));
 
-        Thread.sleep(600);
+        Thread.sleep(1100);
         synchronized (this) {
             System.out.println("\n----------The final VECTOR CLOCK for process 2 is----");
             p2.vc.printVC();
@@ -111,13 +109,13 @@ public class Algorithm {
      */
     private void send(Processor to, Processor from) throws InterruptedException {
         from.calculateVectorClocks(new Message(MessageType.SEND, from.vc.clone()));
-        Message recieveMessage = new Message(RECIEVE, from.vc.clone());
+        Message recieveMessage = new Message(MessageType.RECIEVE, from.vc.clone());
         to.sendMessageToMyBuffer(recieveMessage, from);
 
     }
 
     synchronized private void recieveAndSend(Processor sendTo, Processor sendFrom) throws InterruptedException {
-        Message recieveMessage = new Message(RECIEVE, sendFrom.vc.clone());
+        Message recieveMessage = new Message(MessageType.RECIEVE, sendFrom.vc.clone());
         sendTo.sendMessageToMyBuffer(recieveMessage, sendFrom);
     }
 }
