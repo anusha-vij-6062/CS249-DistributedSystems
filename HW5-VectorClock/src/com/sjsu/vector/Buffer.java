@@ -29,17 +29,25 @@ public class Buffer extends Observable {
     /**
      * @return Message from the buffer
      */
-    public Message getMessage() throws InterruptedException {
+    synchronized public Message getMessage() throws InterruptedException {
         return message;
     }
 
+    /**
+     * Sets message to null after the update method is called.
+     * No need to notifyObserver() in this case.
+     */
+    synchronized public void resetMessage(){
+    	this.message = null;
+    }
+    
     /**
      * Sets the message and notifies the observers with the sender node's information
      *
      * @param message         Message to be stored in the buffer
      * @param //fromProcessor Node who sent the message
      */
-    public void setMessage(Message message, Processor sender) throws InterruptedException {
+    synchronized public void setMessage(Message message, Processor sender) throws InterruptedException {
         this.message = message;
         this.setChanged();
         //System.out.println("Message:: to be sent"+getMessage().messageType+"By"+sender.getId());

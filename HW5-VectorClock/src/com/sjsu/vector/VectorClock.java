@@ -18,15 +18,12 @@ public class VectorClock implements Comparable<VectorClock>{
         newCopy.vc=this.vc.clone();
         return newCopy;
     }
-    
-    /**
-     * Compares the calling vector clock (this) with the vc o
-     * @return 0 if this vc is equal to o; -1 if this vc<o; +1 if this vc>o
-     * @param o the other vector clock "this" vc will be compared to
-     */
+
+    //Returns a negative integer, zero, or a positive integer as this object is less than, 
+    //equal to, or greater than the specified object.
     @Override
     public int compareTo(VectorClock o) {
-        // TODO implement a compare to method that will compare two vector clocks
+    // TODO implement a compare to method that will compare two vector clocks
         
     	//check for equality
     	boolean isEqual = true;
@@ -53,7 +50,7 @@ public class VectorClock implements Comparable<VectorClock>{
     	}else{
     		return 1;
     	}
-
+    	
     }
     
     /**
@@ -74,10 +71,12 @@ public class VectorClock implements Comparable<VectorClock>{
     }
 
     public void printVC(){
+    	System.out.print("[");
         for (int i=0;i<this.vc.length;i++){
             System.out.print(this.vc[i]);
             System.out.printf("\t");
         }
+        System.out.println("]");
     }
 
 }

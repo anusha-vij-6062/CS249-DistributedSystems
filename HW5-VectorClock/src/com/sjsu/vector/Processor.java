@@ -42,7 +42,7 @@ public class Processor implements Observer {
      * @param sender the processor that send message to my (this processor's) buffer
      */
     public void sendMessageToMyBuffer(Message message, Processor sender) throws InterruptedException {
-        //System.out.printf("P%d send %s message to P%d %n",sender.id, message.messageType, this.id);
+        System.out.printf("P%d send %s message to P%d %n",sender.id, message.messageType, this.id);
         this.messageBuffer.setMessage(message,sender);
     }
 
@@ -50,7 +50,7 @@ public class Processor implements Observer {
      * Gets called when a node receives a message in its buffer
      * Processes the message received in the buffer
      */
-    public void update(Observable observable, Object arg) {
+    synchronized public void update(Observable observable, Object arg) {
         sender = (Processor) arg;
         try {
             Message text = messageBuffer.getMessage();
@@ -58,10 +58,25 @@ public class Processor implements Observer {
             	savedProcess = sender;
             	testVC = text.vc.clone();
             }
+            
+            //added
+            synchronized(this.messageBuffer){
+            	if(this.messageBuffer.getMessage().messageType==MessageType.RECIEVE){
+            		this.messageBuffer.notify();
+            	}
+            }
+            
+            //System.out.printf(" Update: P%d recieved message from P%d %n", this.id, sender.id);
+            
             //System.out.printf("\nUpdate: Message:"+text.messageType+" by "+ this.id+" From:"+sender.id);
             //System.out.println("----Received clock:---");
             //text.vc.printVC();
+            
+           
             calculateVectorClocks(observable, arg,text);
+            
+            //this.messageBuffer.resetMessage(); //reset the message buffer to null after message processed.
+            
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -74,11 +89,12 @@ public class Processor implements Observer {
         }
     }
 
-    public void calculateVectorClocks(Observable observable, Object arg,Message recievedMessage) throws InterruptedException {
+    synchronized public void calculateVectorClocks(Observable observable, Object arg,Message recievedMessage) throws InterruptedException {
         //System.out.println("Current Process "+this.id+"Clock is:");
         //this.vc.printVC();
         //System.out.println("\nUpdating its on vector clock by 1 of process id:"+this.getId());
-        this.vc.incrementAt(id);
+    	// Thread.sleep(50);
+    	this.vc.incrementAt(id);
         
       //this.vc.compareTo(recievedMessage.vc);
         if(recievedMessage.messageType==MessageType.RECIEVE){
@@ -92,7 +108,8 @@ public class Processor implements Observer {
         }
         
         //System.out.println("\nUpdated Vector of Processor "+this.id+" clock is for Message Type"+this.messageBuffer.getMessage().messageType);
-        //this.vc.printVC();
+        System.out.printf("  VC of P%d updated to: ", this.getId());
+        this.vc.printVC();
     }
 }
 
