@@ -1,16 +1,12 @@
 package com.sjsu.vector;
 
 public class VectorClock implements Comparable<VectorClock>{
-    //TODO: read up how to use a comparable and a comparator
-    //TODO: Do you see an advantage in making it an Integer ??
     int[] vc;
 
     public VectorClock(int noOfProcesses ) {
         vc = new int [noOfProcesses];
-        //TODO : Set all to 0.  Do you need to explicitly initilize to 0
     }
     public VectorClock(){
-
     }
 
     public VectorClock clone(){
@@ -23,11 +19,9 @@ public class VectorClock implements Comparable<VectorClock>{
     //equal to, or greater than the specified object.
     @Override
     public int compareTo(VectorClock o) {
-    // TODO implement a compare to method that will compare two vector clocks
-        
-    	//check for equality
+    //implement a compare to method that will compare two vector clocks
+    //check for equality
     	boolean isEqual = true;
-        
         for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]!=o.vc[i]){
     			isEqual = false;
@@ -38,19 +32,16 @@ public class VectorClock implements Comparable<VectorClock>{
     	
     	//check if greater/less than
     	boolean isSmaller = true;
-    	
     	for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]>o.vc[i]){
     			isSmaller = false;
     		}
     	}
-    	
     	if(isSmaller){
     		return -1;
     	}else{
     		return 1;
-    	}
-    	
+    	}    	
     }
     
     /**
@@ -59,6 +50,7 @@ public class VectorClock implements Comparable<VectorClock>{
      * @param index
      * @param value
      */
+    
     public void updateAt(int index, int value){
         vc[index]= value;
         //System.out.println("\nUpdated!");
