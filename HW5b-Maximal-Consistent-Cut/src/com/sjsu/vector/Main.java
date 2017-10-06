@@ -18,15 +18,15 @@ public class Main {
 
         Runnable r0 = new Executor(algo, algo.p0);
         Runnable r1 = new Executor(algo, algo.p1);
-        Runnable r2 = new Executor(algo, algo.p2);
+        //Runnable r2 = new Executor(algo, algo.p2);
 
         Thread t0 = new Thread(r0);
         Thread t1 = new Thread(r1);
-        Thread t2 = new Thread(r2);
+        //Thread t2 = new Thread(r2);
 
         t0.start();
         t1.start();
-        t2.start();
+        //t2.start();
     }
 
 }

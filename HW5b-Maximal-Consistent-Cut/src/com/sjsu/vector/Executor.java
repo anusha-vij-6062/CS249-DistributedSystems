@@ -28,13 +28,6 @@ public class Executor implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }else{
-        	try {
-                algo.executionPlanForP2();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        	
         }
     }
 
