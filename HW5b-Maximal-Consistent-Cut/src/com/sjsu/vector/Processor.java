@@ -1,4 +1,5 @@
 package com.sjsu.vector;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,7 +15,8 @@ public class Processor implements Observer {
     Buffer messageBuffer ;
     Integer id ;
     VectorClock vc ; //This is the current vector clock
-    
+    ArrayList<int[]> store;
+
     /**
      * Initializes the processor with id, children and unexplored lists. Adds himself in the observers list.
      * @param id of the processor
@@ -24,6 +26,23 @@ public class Processor implements Observer {
         this.id = id;
         messageBuffer.addObserver(this);
         vc=new VectorClock(totalProcesors);
+        store = new ArrayList<int[]>();
+    }
+
+    public void getStore(int index) {
+        System.out.println(store.get(index)[0]+" "+store.get(index)[1]);
+    }
+
+    public void printStore() {
+        System.out.print("[");
+        for (int i=0;i<this.store.size();i++){
+            int[] item = this.store.get(i);
+            System.out.print(item[0]);
+            System.out.print(" ");
+            System.out.print(item[1]);
+            System.out.print(",\t");
+        }
+        System.out.print("]");
     }
 
     /**
@@ -70,6 +89,13 @@ public class Processor implements Observer {
 	        }
         }
         System.out.printf("  VC of P%d updated to: ", this.getId());
+        this.store.add(this.vc.vc.clone());
         this.vc.printVC();
     }
+
+    public void calculateMaximalCut(int[] k){
+        System.out.print("Starting access from:");
+        this.getStore(k[this.id]);
+    }
+
 }
