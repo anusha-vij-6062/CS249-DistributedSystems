@@ -23,7 +23,7 @@ public class Algorithm {
     public void executionPlanForP0() throws InterruptedException {
         //sample plan from slides
     	
-    	Thread.sleep(200);
+    	Thread.sleep(350);
     	this.send(p1, p0);
     	
     	Thread.sleep(300);
@@ -39,6 +39,7 @@ public class Algorithm {
         synchronized (this) {
             System.out.println("\n------The final VECTOR CLOCK for process 0 is---");
             p0.vc.printVC();
+            p0.printStore();
         }
 
     }
@@ -49,7 +50,7 @@ public class Algorithm {
     	Thread.sleep(100);
     	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
     	
-    	Thread.sleep(200);
+    	Thread.sleep(100);
     	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
     	
     	Thread.sleep(100);
@@ -68,6 +69,10 @@ public class Algorithm {
         synchronized (this) {
             System.out.println("\n----------The final VECTOR CLOCK for process 1 is----");
             p1.vc.printVC();
+            p1.printStore();
+            int[] cut = {0,2};
+            p1.calculateMaximalCut(cut);
+
         }
     }
 
