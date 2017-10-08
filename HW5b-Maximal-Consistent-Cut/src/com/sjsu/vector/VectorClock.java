@@ -1,5 +1,9 @@
 package com.sjsu.vector;
-
+/**
+ * Maximal Consistent Cut Program
+ * @author Rashmeet Khanuja, Anusha Vijay, Steven Yen
+ * Skeleton code provided on which we built-upon.
+ */
 public class VectorClock implements Comparable<VectorClock>{
     int[] vc;
 
@@ -15,16 +19,23 @@ public class VectorClock implements Comparable<VectorClock>{
         return newCopy;
     }
 
-    //Returns a negative integer, zero, or a positive integer as this object is less than, 
-    //equal to, or greater than the specified object.
+    public VectorClock(int[] k){
+        vc=new int[2];
+        this.vc=k;
+    }
+
     @Override
     public int compareTo(VectorClock o) {
     //implement a compare to method that will compare two vector clocks
     //check for equality
+    // 0= equal
+    // 1= greater
+    // -1= smaller
     	boolean isEqual = true;
         for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]!=o.vc[i]){
     			isEqual = false;
+    			break;
     		}
     	}
         
@@ -35,6 +46,7 @@ public class VectorClock implements Comparable<VectorClock>{
     	for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]>o.vc[i]){
     			isSmaller = false;
+    			break;
     		}
     	}
     	if(isSmaller){
@@ -43,14 +55,20 @@ public class VectorClock implements Comparable<VectorClock>{
     		return 1;
     	}    	
     }
-    
+
+    //Returns a negative integer, zero, or a positive integer as this object is less than,
+    //equal to, or greater than the specified object.
+    public int compareTo(int[] arr){
+        VectorClock otherVC= new VectorClock(arr);
+        return this.compareTo(otherVC);
+    }
+
     /**
      * Based on a event vector clock will be incremented, changed or updated.
      * Which index should be updated will be decided by a processor
      * @param index
      * @param value
      */
-    
     public void updateAt(int index, int value){
         vc[index]= value;
         //System.out.println("\nUpdated!");

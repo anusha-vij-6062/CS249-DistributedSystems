@@ -1,6 +1,6 @@
 package com.sjsu.vector;
 /**
- * CS249 VectorClock program
+ * CS249 Maximal Consistent Cut program
  * Class we added in addition to classes provided in skeleton
  * @author Rashmeet Khanuja, Anusha Vijay, Steven Yen
  *

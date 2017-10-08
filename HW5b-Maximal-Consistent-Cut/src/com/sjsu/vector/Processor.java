@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * CS249 VectorClock Program
+ * CS249 Maximal Consistent Cut Program
  * A skeleton code was provided on which we built-upon
  * Performs all the processor related tasks
  * @author Rashmeet Khanuja, Anusha Vijay, Steven Yen
@@ -15,7 +15,7 @@ public class Processor implements Observer {
     Buffer messageBuffer ;
     Integer id ;
     VectorClock vc ; //This is the current vector clock
-    ArrayList<int[]> store;
+    ArrayList<int[]> store; //storing the vc at each computation event (1-indexed, not 0-indexed)
 
     /**
      * Initializes the processor with id, children and unexplored lists. Adds himself in the observers list.
@@ -27,19 +27,28 @@ public class Processor implements Observer {
         messageBuffer.addObserver(this);
         vc=new VectorClock(totalProcesors);
         store = new ArrayList<int[]>();
+        store.add(new int[]{Integer.MIN_VALUE,Integer.MIN_VALUE}); //adding dummy 0th entry
     }
 
-    public void getStore(int index) {
+    /**
+     * Print the indexed vector clock in the store
+     * @param index number corresponding to the computation event we're interested in
+     */
+    public void printStore(int index) {
         System.out.println(store.get(index)[0]+" "+store.get(index)[1]);
     }
 
+    /**
+     * Loops through store array and print each vector clock
+     */
     public void printStore() {
         System.out.print("[");
-        for (int i=0;i<this.store.size();i++){
+        //start from 1 b/c the 0th one is dummy
+        for (int i=1;i<this.store.size();i++){
             int[] item = this.store.get(i);
-            System.out.print(item[0]);
-            System.out.print(" ");
-            System.out.print(item[1]);
+            System.out.print("<"+item[0]);
+            System.out.print(", ");
+            System.out.print(item[1]+">");
             System.out.print(",\t");
         }
         System.out.print("]");
@@ -52,9 +61,10 @@ public class Processor implements Observer {
     public Integer getId(){
         return id;
     }
+
     /**
-     * Overlaoding of above method we added that has sender param
-     * @param message
+     * Sets the message in the messageBuffer of this processor
+     * @param message the messagae to be set
      * @param sender the processor that send message to my (this processor's) buffer
      */
     public void sendMessageToMyBuffer(Message message, Processor sender) throws InterruptedException {
@@ -75,10 +85,18 @@ public class Processor implements Observer {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * This method calculates the vector clock after receiving a message in the buffer
+     * since this method is in Processor, it can directly update the "vc" field, so this
+     * method does not need a return type (Can just be void).
+     * @param recievedMessage
+     * @throws InterruptedException
+     */
     public void calculateVectorClocks(Message recievedMessage) throws InterruptedException {
 
         this.vc.incrementAt(id);
+
         if(recievedMessage.messageType==MessageType.RECIEVE){
 	        for(int i=0; i< this.vc.vc.length; i++){
 	        	if(i != this.getId()){
@@ -88,14 +106,40 @@ public class Processor implements Observer {
 	        	}
 	        }
         }
+
         System.out.printf("  VC of P%d updated to: ", this.getId());
         this.store.add(this.vc.vc.clone());
         this.vc.printVC();
     }
 
-    public void calculateMaximalCut(int[] k){
-        System.out.print("Starting access from:");
-        this.getStore(k[this.id]);
+    /**
+     * Calculate the maximal cut's entry corresponding to this processor
+     * @param k a cut specified as an array. 0th index correspond to proc 0, 1st to proc 1, etc.
+     * @return m' value corresponding to the entry of the maximal consistent cut corresponding to this proc.
+     */
+    public int calculateMaximalCut(int[] k){
+        //cut ={1,5}
+        VectorClock cut=new VectorClock(k);
+        System.out.print("\nStarting access from:");
+        this.printStore(k[this.id]);
+        int m = k[this.id];
+        int mp=-1;
+        //compare 1,5 with 4,6, then 1,5 with 1,5 then with 1,4
+        //{4,6}
+
+        for (int i=m;i>=0;i--){
+            System.out.print("Compared to ");
+            printStore(i);
+
+            if(cut.compareTo(store.get(i))>=0){
+                mp=i;
+                break;
+            }
+            else{
+                System.out.println("Passed");
+            }
+        }
+        return mp;
     }
 
 }
