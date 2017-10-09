@@ -7,14 +7,20 @@ package com.sjsu.vector;
  *
  */
 public class Main {
+    Algorithm algo;
+    int [] maximumCut;
 
-    public static void main(String[] args) throws InterruptedException {
+    Main() throws InterruptedException {
         init();
+
+    }
+    public void init() throws InterruptedException {
+        this.algo = new Algorithm();
+        this.maximumCut=new int[2];
+
     }
 
-    public static void init() throws InterruptedException {
-        Algorithm algo = new Algorithm();
-
+    void fireExecution(){
         Runnable r0 = new Executor(algo, algo.p0);
         Runnable r1 = new Executor(algo, algo.p1);
 
@@ -23,16 +29,24 @@ public class Main {
 
         t0.start();
         t1.start();
-
-        //cut is = 2,6
-        int[] cut = {2,6};
-        Thread.sleep(5000);
-        int a=algo.p0.calculateMaximalCut(cut);
-        Thread.sleep(1000);
-        int b=algo.p1.calculateMaximalCut(cut);
-        System.out.printf("Based on an input cut of <%d, %d>,%n",cut[0],cut[1]);
-        System.out.printf("The Final Maximal Consistent Cut is <%d, %d>",a,b);
-
     }
 
+    void sendCut(int[] k,Algorithm algo) throws InterruptedException {
+        Message cut=new Message(MessageType.CUT,k);
+        algo.p0.sendMessageToMyBuffer(cut,algo.p0);
+        this.maximumCut[0]=algo.p0.getMaxCut();
+        algo.p1.sendMessageToMyBuffer(cut,algo.p1);
+        this.maximumCut[1]=algo.p1.getMaxCut();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Main m=new Main();
+        int[] cut = {2,6};
+        m.fireExecution();
+        Thread.sleep(2000);
+        m.sendCut(cut,m.algo);
+        System.out.printf("Based on an input cut of <%d, %d>,%n",cut[0],cut[1]);
+        System.out.printf("The Final Maximal Consistent Cut is <%d, %d>",m.maximumCut[0],m.maximumCut[1]);
+
+    }
 }
