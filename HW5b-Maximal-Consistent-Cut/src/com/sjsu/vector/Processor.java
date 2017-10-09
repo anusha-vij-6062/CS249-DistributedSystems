@@ -14,6 +14,7 @@ import java.util.Observer;
 public class Processor implements Observer {
     Buffer messageBuffer ;
     Integer id ;
+    int maxCut;
     VectorClock vc ; //This is the current vector clock
     ArrayList<int[]> store; //storing the vc at each computation event (1-indexed, not 0-indexed)
 
@@ -28,6 +29,7 @@ public class Processor implements Observer {
         vc=new VectorClock(totalProcesors);
         store = new ArrayList<int[]>();
         store.add(new int[]{Integer.MIN_VALUE,Integer.MIN_VALUE}); //adding dummy 0th entry
+        maxCut=Integer.MIN_VALUE;
     }
 
     /**
@@ -52,6 +54,10 @@ public class Processor implements Observer {
             System.out.print(",\t");
         }
         System.out.print("]");
+    }
+
+    public int getMaxCut() {
+        return maxCut;
     }
 
     /**
@@ -79,7 +85,13 @@ public class Processor implements Observer {
     synchronized public void update(Observable observable, Object arg) {
         try {
             Message text = messageBuffer.getMessage();
+            if(text.messageType==MessageType.CUT){
+                this.maxCut=calculateMaximalCut(text.getCut());
+            }
+            else{
             calculateVectorClocks(text);
+            }
+
             
         } catch (InterruptedException e) {
             e.printStackTrace();
