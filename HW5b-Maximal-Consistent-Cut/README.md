@@ -25,53 +25,45 @@ For this assignment we used as the input space-time diagram (execution plan) giv
 
 # Output
 ```
-P1 send COMPUTATION message to P1 
-  VC of P1 updated to: [0	1	]
-  VC of P0 updated to: [1	0	]
-P1 send COMPUTATION message to P1 
-  VC of P1 updated to: [0	2	]
-P1 send COMPUTATION message to P1 
-  VC of P1 updated to: [0	3	]
-P0 send COMPUTATION message to P0 
-  VC of P0 updated to: [2	0	]
-P0 send RECIEVE message to P1 
-  VC of P1 updated to: [1	4	]
-P1 send COMPUTATION message to P1 
-  VC of P1 updated to: [1	5	]
-P0 send COMPUTATION message to P0 
-  VC of P0 updated to: [3	0	]
-  VC of P0 updated to: [4	0	]
-P0 send RECIEVE message to P1 
-  VC of P1 updated to: [4	6	]
-
-------The final VECTOR CLOCK for process 0 is---
-[4	0	]
-The store array is: [<1, 0>,	<2, 0>,	<3, 0>,	<4, 0>,	]
-
-----------The final VECTOR CLOCK for process 1 is----
-[4	6	]
-The store array is: [<0, 1>,	<0, 2>,	<0, 3>,	<1, 4>,	<1, 5>,	<4, 6>,	]
+P1 send COMPUTATION message to P1
+  VC of P1 updated to: [0 1 ]
+  VC of P0 updated to: [1 0 ]
+P1 send COMPUTATION message to P1
+  VC of P1 updated to: [0 2 ]
+P1 send COMPUTATION message to P1
+  VC of P1 updated to: [0 3 ]
+P0 send COMPUTATION message to P0
+  VC of P0 updated to: [2 0 ]
+P0 send RECIEVE message to P1
+  VC of P1 updated to: [1 4 ]
+P1 send COMPUTATION message to P1
+  VC of P1 updated to: [1 5 ]
+P0 send COMPUTATION message to P0
+  VC of P0 updated to: [3 0 ]
+  VC of P0 updated to: [4 0 ]
+P0 send RECIEVE message to P1
+  VC of P1 updated to: [4 6 ]
+P0 send CUT message to P0 
 
 Starting access from:2 0
-Compared to 2 0
-P1 send CUT message to P1
+P1 send CUT message to P1 
 
 Starting access from:4 6
-Compared to 4 6
-Passed
-Compared to 1 5
+
+------------------Process 0---------------------
+The store array is: [<1, 0>,<2, 0>,<3, 0>,<4, 0>,]
+------------------------------------------------
+
+-------------------Process 1--------------------
+The store array is: [<0, 1>,<0, 2>,<0, 3>,<1, 4>,<1, 5>,<4, 6>,]
+------------------------------------------------
+
+--------------------Maximum Consistant Cut-------------------------------
 Based on an input cut of <2, 6>,
 The Final Maximal Consistent Cut is <2, 5>
-```
+-------------------------------------------------------------------------
 
-```
-Based on an input cut of <1, 3>,
-The Final Maximal Consistent Cut is <1, 3>
-```
-
-```
-Based on an input cut of <1, 4>,
-The Final Maximal Consistent Cut is <1, 4>
+Process finished with exit code 0
 ```
 
 # Prerequisites
