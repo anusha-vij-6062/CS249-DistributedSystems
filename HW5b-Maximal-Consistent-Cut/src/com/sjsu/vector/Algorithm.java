@@ -18,7 +18,7 @@ public class Algorithm {
         p1 = new Processor(1, 2);
 
     }
-
+    
     // Write hard coded execution plan for processors
     public void executionPlanForP0() throws InterruptedException {
         //sample plan from slides
@@ -35,12 +35,12 @@ public class Algorithm {
     	Thread.sleep(100);
     	this.send(p1, p0, 100);
     	
-        Thread.sleep(1600);
+        Thread.sleep(1700);
         synchronized (this) {
-            System.out.println("\n------The final VECTOR CLOCK for process 0 is---");
-            p0.vc.printVC();
+            System.out.println("\n------------------Process 0---------------------");
             System.out.print("The store array is: ");
             p0.printStore();
+            System.out.println("\n------------------------------------------------");
         }
 
     }
@@ -51,27 +51,30 @@ public class Algorithm {
     	Thread.sleep(100);
     	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
     	
+    	Thread.sleep(200);
+    	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
+    	
     	Thread.sleep(100);
     	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
+    	
+    	Thread.sleep(200);
+    	//this.receive(p1,p0);
+		//we opted not to use receive() method b/c wait is not needed when we
+		//give  p1 enough time to recieve message by using thread.sleep.
     	
     	Thread.sleep(100);
     	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
     	
     	Thread.sleep(300);
     	//this.receive(p1,p0);
-    	
-    	Thread.sleep(100);
-    	this.compute(p1, new Message(MessageType.COMPUTATION, p1.vc.clone()));
-    	
-    	Thread.sleep(300);
-    	//this.receive(p1,p0);
+		//see above comment regarding receive().
     	
         Thread.sleep(2400);
         synchronized (this) {
-            System.out.println("\n----------The final VECTOR CLOCK for process 1 is----");
-            p1.vc.printVC();
+            System.out.println("\n-------------------Process 1--------------------");
             System.out.print("The store array is: ");
             p1.printStore();
+            System.out.println("\n------------------------------------------------");
         }
     }
 

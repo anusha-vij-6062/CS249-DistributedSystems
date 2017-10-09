@@ -7,12 +7,17 @@ package com.sjsu.vector;
 public class VectorClock implements Comparable<VectorClock>{
     int[] vc;
 
-    public VectorClock(int noOfProcesses ) {
+    public VectorClock(int noOfProcesses ){
         vc = new int [noOfProcesses];
     }
+
     public VectorClock(){
     }
 
+	/**
+	* Create a copy of vector clock with it's own vc array,
+	* that is not simply a reference to the one passed in.
+	*/
     public VectorClock clone(){
         VectorClock newCopy = new VectorClock();
         newCopy.vc=this.vc.clone();
@@ -39,9 +44,9 @@ public class VectorClock implements Comparable<VectorClock>{
     		}
     	}
         
-    	if(isEqual) return 0;
-    	
-    	//check if greater/less than
+    	if(isEqual)
+    	    return 0;
+
     	boolean isSmaller = true;
     	for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]>o.vc[i]){
@@ -56,8 +61,10 @@ public class VectorClock implements Comparable<VectorClock>{
     	}    	
     }
 
-    //Returns a negative integer, zero, or a positive integer as this object is less than,
-    //equal to, or greater than the specified object.
+	/**
+	* Overloaded version of above method that takes
+	* in an int[] array as a parameter.
+	*/
     public int compareTo(int[] arr){
         VectorClock otherVC= new VectorClock(arr);
         return this.compareTo(otherVC);
@@ -71,20 +78,17 @@ public class VectorClock implements Comparable<VectorClock>{
      */
     public void updateAt(int index, int value){
         vc[index]= value;
-        //System.out.println("\nUpdated!");
     }
 
-    public void incrementAt(int index)
-    {
+    public void incrementAt(int index) {
         vc[index]+=1;
-        //System.out.println("\nIncremented!");
     }
 
     public void printVC(){
     	System.out.print("[");
         for (int i=0;i<this.vc.length;i++){
             System.out.print(this.vc[i]);
-            System.out.printf("\t");
+            System.out.printf(" ");
         }
         System.out.println("]");
     }

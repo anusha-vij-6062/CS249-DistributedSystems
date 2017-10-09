@@ -11,17 +11,21 @@ import java.util.Observer;
  * @version 1.0
  *
  */
+
 public class Processor implements Observer {
     Buffer messageBuffer ;
     Integer id ;
-    int maxCut;
+    int maxCut; // Used by the main class to get the maximum cut index after CalculateMaxCut is called
     VectorClock vc ; //This is the current vector clock
     ArrayList<int[]> store; //storing the vc at each computation event (1-indexed, not 0-indexed)
 
     /**
-     * Initializes the processor with id, children and unexplored lists. Adds himself in the observers list.
+     * Initializes the processor with id, Vector clock, store of Vector clocks, and Maximum cut
+     * Adds himself in the observers list.
      * @param id of the processor
+     * @param totalProcesors in the system
      */
+
     public Processor(int id, int totalProcesors) {
         messageBuffer = new Buffer();
         this.id = id;
@@ -51,12 +55,17 @@ public class Processor implements Observer {
             System.out.print("<"+item[0]);
             System.out.print(", ");
             System.out.print(item[1]+">");
-            System.out.print(",\t");
+            System.out.print(",");
         }
         System.out.print("]");
     }
 
-    public int getMaxCut() {
+    /**
+     * Getter for processor's calculated maximum cut
+     * @return maximum cut as integer
+     */
+
+    public int getMaxCut(){
         return maxCut;
     }
 
@@ -74,8 +83,8 @@ public class Processor implements Observer {
      * @param sender the processor that send message to my (this processor's) buffer
      */
     public void sendMessageToMyBuffer(Message message, Processor sender) throws InterruptedException {
-        System.out.printf("P%d send %s message to P%d %n",sender.id, message.messageType, this.id);
-        this.messageBuffer.setMessage(message,sender);
+        System.out.printf("P%d send %s message to P%d %n",sender.id, message.getMessageType(),this.id);
+        this.messageBuffer.setMessage(message);
     }
 
     /**
@@ -85,13 +94,12 @@ public class Processor implements Observer {
     synchronized public void update(Observable observable, Object arg) {
         try {
             Message text = messageBuffer.getMessage();
-            if(text.messageType==MessageType.CUT){
+            if(text.getMessageType()==MessageType.CUT){
                 this.maxCut=calculateMaximalCut(text.getCut());
             }
             else{
             calculateVectorClocks(text);
             }
-
             
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -109,11 +117,11 @@ public class Processor implements Observer {
 
         this.vc.incrementAt(id);
 
-        if(recievedMessage.messageType==MessageType.RECIEVE){
+        if(recievedMessage.getMessageType()==MessageType.RECIEVE){
 	        for(int i=0; i< this.vc.vc.length; i++){
 	        	if(i != this.getId()){
-	        		if(this.vc.vc[i]<recievedMessage.vc.vc[i]){
-	        			this.vc.updateAt(i,recievedMessage.vc.vc[i]);
+	        		if(this.vc.vc[i]<recievedMessage.getVc().vc[i]){
+	        			this.vc.updateAt(i,recievedMessage.getVc().vc[i]);
 	        		}
 	        	}
 	        }
@@ -130,28 +138,17 @@ public class Processor implements Observer {
      * @return m' value corresponding to the entry of the maximal consistent cut corresponding to this proc.
      */
     public int calculateMaximalCut(int[] k){
-        //cut ={1,5}
         VectorClock cut=new VectorClock(k);
         System.out.print("\nStarting access from:");
         this.printStore(k[this.id]);
         int m = k[this.id];
         int mp=-1;
-        //compare 1,5 with 4,6, then 1,5 with 1,5 then with 1,4
-        //{4,6}
-
         for (int i=m;i>=0;i--){
-            System.out.print("Compared to ");
-            printStore(i);
-
             if(cut.compareTo(store.get(i))>=0){
                 mp=i;
                 break;
             }
-            else{
-                System.out.println("Passed");
-            }
         }
         return mp;
     }
-
 }

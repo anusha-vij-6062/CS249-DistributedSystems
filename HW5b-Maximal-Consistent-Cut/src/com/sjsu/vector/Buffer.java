@@ -17,15 +17,6 @@ public class Buffer extends Observable {
     public Buffer() {
         this.message = null;
     }
-
-    /**
-     * Creates buffer with message
-     * @param message Message to be stored
-     */
-    public Buffer(Message message) {
-        this.message = message;
-    }
-
     /**
      * @return Message from the buffer
      */
@@ -38,7 +29,7 @@ public class Buffer extends Observable {
      * No need to notifyObserver() in this case.
      */
 
-    synchronized public void setMessage(Message message, Processor sender) throws InterruptedException {
+    synchronized public void setMessage(Message message) throws InterruptedException {
         this.message = message;
         this.setChanged();
         notifyObservers();
