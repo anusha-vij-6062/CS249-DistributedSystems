@@ -5,10 +5,10 @@ This program determines the maximal consistent cut in an execution given an inpu
 
 For this assignment we used as the input space-time diagram (execution plan) given in Fig.6.7 (pg 134) of the book “Distributed Computing: Fundamentals, Simulations and Advanced Topics, 2ed, by H. Attiya and J. Welch”. The input cut and the expected output are as follows:
 
-Input cut 	|expected output	  |our output
-<1,3>		    |<1,3>			        |<1,3>			
-<1,4>		    |<1,4>			        |<1,4>
-<2,6>		    |<2,5>			        |<2,5>
+Input cut 	|expected output	  |our output<br>
+<1,3>		    |<1,3>			        |<1,3>			<br>
+<1,4>		    |<1,4>			        |<1,4>      <br>
+<2,6>		    |<2,5>			        |<2,5>      <br>
 
 # Running the program:
 The program can be run by importing/opening this project “HW5b-Maximal-Consistent-Cut” in an IDE like Eclipse or IntelliJ. Alternatively, the program can be compiled and ran through a CLI terminal (provided the javac and java environmental variables are setup). To run the program from terminal, following the steps below:
@@ -24,7 +24,7 @@ The program can be run by importing/opening this project “HW5b-Maximal-Consist
 For this assignment we used as the input space-time diagram (execution plan) given in Fig.6.7 (pg 134) of the book “Distributed Computing: Fundamentals, Simulations and Advanced Topics, 2ed, by H. Attiya and J. Welch”.
 
 # Output
-…
+```
 P1 send COMPUTATION message to P1 
   VC of P1 updated to: [0	1	]
   VC of P0 updated to: [1	0	]
@@ -62,15 +62,17 @@ Passed
 Compared to 1 5
 Based on an input cut of <2, 6>,
 The Final Maximal Consistent Cut is <2, 5>
-…
-…
+```
+
+```
 Based on an input cut of <1, 3>,
 The Final Maximal Consistent Cut is <1, 3>
-…
-…
+```
+
+```
 Based on an input cut of <1, 4>,
 The Final Maximal Consistent Cut is <1, 4>
-…
+```
 
 # Prerequisites
 -java version "1.8.0_144"
