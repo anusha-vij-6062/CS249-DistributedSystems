@@ -35,6 +35,7 @@ public class Buffer extends Observable {
     }
 
     /**
+     * Get message at the specified index of the list.
      * @return Message from the buffer
      */
     public Message getMessage(int index) {
@@ -43,7 +44,7 @@ public class Buffer extends Observable {
 
     /**
      * Sets the message and notifies the observers with the sender node's information
-     *
+     * Saves the message to the list of messasge
      * @param message Message to be stored in the buffer
      */
     public void saveMessage(Message message) {
@@ -52,6 +53,10 @@ public class Buffer extends Observable {
         notifyObservers(message);
     }
 
+    /**
+     * Returns the number of messages stored in the list.
+     * @return length of the list of message
+     */
     int getTotalMessageCount() {
         return messages.size();
     }

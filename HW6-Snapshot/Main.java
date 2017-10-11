@@ -53,7 +53,27 @@ public class Main {
          * [Hint: call the initiateSnapshot method ]
          */
 
+        //added the following to spawn algorithm threads
+        Algorithm algo = new Algorithm(processor1, processor2, processor3);
+        Runnable r1 = new Executor(algo, algo.processor1);
+        Runnable r2 = new Executor(algo, algo.processor2);
+        Runnable r3 = new Executor(algo, algo.processor3);
+
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+        Thread t3 = new Thread(r3);
+
+        t1.start();
+        t2.start();
+        t3.start();
+
+        Thread.sleep(3000);
+
         processor1.initiateSnapShot();
+
+        System.out.println("processor1.ans = " + processor1.ans);
+        System.out.println("processor2.ans = " + processor2.ans);
+        System.out.println("processor3.ans = " + processor3.ans);
 
     }
 

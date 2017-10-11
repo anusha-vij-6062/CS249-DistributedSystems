@@ -13,7 +13,8 @@ import java.util.*;
 public class Processor implements Observer {
 
     List<Buffer> inChannels = new ArrayList<>();
-    int num;
+    int num = 0; //count of number of ALGORITHM messages received
+    int ans = 0; //number ALGORITHM messages received before first MARKER message received
     int id;
 
 
@@ -130,7 +131,6 @@ public class Processor implements Observer {
 
     /**
      *
-     * @param fromChannel channel where marker has arrived
      * @return true if this is the first marker false otherwise
      */
     public boolean isFirstMarker() {
@@ -162,7 +162,7 @@ public class Processor implements Observer {
      * Processes the message received in the buffer
      */
     public void update(Observable observable, Object arg) {
-        Buffer text=(Buffer) observable;
+        //Buffer text=(Buffer) observable;
         //Message message = text.getMessage(0);
         Message message=(Message) arg;
 
@@ -173,16 +173,21 @@ public class Processor implements Observer {
             //TODO: add logic here so that if the marker comes back to the initiator then it should stop recording
             if (isFirstMarker()) {
                 System.out.println("Recieved first Marker Message by:!"+this.id+" On: "+fromChannel.getLabel());
-                this.channelMarkerCount.put(text,1);
+                this.channelMarkerCount.put(fromChannel,1);
                 this.recordMyCurrentState();
                 recordChannelAsEmpty(fromChannel);
-                channelMarkerCount.put(fromChannel, channelMarkerCount.get(fromChannel) + 1);
+                channelMarkerCount.put(fromChannel, channelMarkerCount.get(fromChannel) + 1); //don't need this
                 for(Buffer incomingChannel:this.inChannels){
                     if(incomingChannel!=fromChannel){
                         recordChannel(incomingChannel);
                     }
                 }
                 Message markerMessage=new Message(MessageType.MARKER);
+
+                if(ans ==0 ) {
+                    ans = num;
+                }
+
                 for (Buffer outgoingChannel:this.outChannels){
                     sendMessgeTo(message,outgoingChannel);
                 }
@@ -193,11 +198,12 @@ public class Processor implements Observer {
                 //TODO: homework: Trigger the recorder thread from this processor so that it starts recording for each channel
                 // Exclude the "Channel from which marker has arrived.
 
+
             } else {
                 System.out.println("Recieved Duplicated Marker Message By:"+this.id+" On: "+fromChannel.getLabel());
                 System.out.println("Stop Recording the channel"+fromChannel.getLabel()+"By Process:"+this.id);
-                this.channelMarkerCount.remove(fromChannel);
-                System.out.println("should be false!->"+this.channelMarkerCount.containsKey(fromChannel));
+                //this.channelMarkerCount.remove(fromChannel);
+                //System.out.println("should be false!->"+this.channelMarkerCount.containsKey(fromChannel));
                 //Means it isDuplicateMarkerMessage.
                 //TODO: Homework Stop the recorder thread.
             }
@@ -208,7 +214,9 @@ public class Processor implements Observer {
         else{
             if (message.getMessageType().equals(MessageType.ALGORITHM)) {
                 System.out.println("Processing Algorithm message....");
+                num++;
             }  //There is no other type
+
         }
 
 
@@ -229,6 +237,12 @@ public class Processor implements Observer {
             //System.out.println("Recording incoming channels"+inChannel.getLabel());
             this.recordChannel(inChannel);
         }
+
+        if(ans == 0){
+            ans = num;
+        }
+
+        //Send marker message to all outgoing channels.
         for(Buffer outChannel: this.outChannels){
             System.out.println("Sending MarkerMessage to:"+outChannel.getLabel());
             this.channelMarkerCount.put(outChannel,1);
@@ -242,6 +256,30 @@ public class Processor implements Observer {
         //TODO: homework Start recording on each of the input channels
     }
 
+//Methods added 20171011
 
+    /**
+     * Looks up channel by label
+     * @param lab label of desired channel.
+     * @return the channel with matching label or null if none.
+     */
+    public Buffer getOutChannelByLabel(String lab){
+        for(Buffer buff : outChannels){
+            if(buff.getLabel().equals(lab)){
+                return buff;
+            }
+        }
 
+        System.out.println("Specified channel not found");
+        return null;
+    }
+
+    /**
+     * getter for the process ID.
+     * @return
+     */
+    public int getId(){
+
+        return id;
+    }
 }
