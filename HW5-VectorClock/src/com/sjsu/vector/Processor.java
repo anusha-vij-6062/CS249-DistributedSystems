@@ -33,6 +33,7 @@ public class Processor implements Observer {
     public Integer getId(){
         return id;
     }
+	
     /**
      * Overlaoding of above method we added that has sender param
      * @param message
@@ -57,6 +58,11 @@ public class Processor implements Observer {
         }
     }
     
+	/**
+	* This method calculates the vector clock after recieving a message in the buffer
+	* since this method is in Processor, it can directly update the "vc" field, so this
+	* method does not need a return type (can just be void).
+	*/
     public void calculateVectorClocks(Message recievedMessage) throws InterruptedException {
 
         this.vc.incrementAt(id);

@@ -25,6 +25,7 @@ public class VectorClock implements Comparable<VectorClock>{
         for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]!=o.vc[i]){
     			isEqual = false;
+				break;
     		}
     	}
         
@@ -35,6 +36,7 @@ public class VectorClock implements Comparable<VectorClock>{
     	for(int i=0; i<o.vc.length;i++){
     		if(this.vc[i]>o.vc[i]){
     			isSmaller = false;
+				break;
     		}
     	}
     	if(isSmaller){
@@ -50,7 +52,6 @@ public class VectorClock implements Comparable<VectorClock>{
      * @param index
      * @param value
      */
-    
     public void updateAt(int index, int value){
         vc[index]= value;
         //System.out.println("\nUpdated!");
