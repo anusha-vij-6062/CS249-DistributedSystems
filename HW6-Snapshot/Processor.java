@@ -162,9 +162,9 @@ public class Processor implements Observer {
      * Processes the message received in the buffer
      */
     public void update(Observable observable, Object arg) {
-        Processor sender = (Processor) arg;
         Buffer text=(Buffer) observable;
-        Message message = text.getMessage(0);
+        //Message message = text.getMessage(0);
+        Message message=(Message) arg;
 
         if (message.getMessageType().equals(MessageType.MARKER)) {
             System.out.println("Recieved Marker Message by:"+this.id);
