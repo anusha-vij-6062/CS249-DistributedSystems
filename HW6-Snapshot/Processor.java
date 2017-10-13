@@ -16,6 +16,7 @@ public class Processor implements Observer {
     int num = 0; //count of number of ALGORITHM messages received
     int ans = 0; //number ALGORITHM messages received before first MARKER message received
     int id;
+    Map<Buffer,Thread> recorderList;
 
 
     /**
@@ -58,6 +59,8 @@ public class Processor implements Observer {
         }
         channelMarkerCount=new HashMap<>();
         channelState=new HashMap<>();
+        recorderList=new HashMap<>();
+
     }
 
 
@@ -66,6 +69,7 @@ public class Processor implements Observer {
      * of this processor
      */
     public void recordMyCurrentState() {
+        System.out.printf("\nCurrent Ans is:"+this.ans);
         System.out.printf("\nProcess %d: Recording my registers...",this.id);
         System.out.printf("\nProcess %d: Recording my program counters...",this.id);
         System.out.printf("\nProcess %d: Recording my local variables...\n",this.id);
@@ -95,15 +99,23 @@ public class Processor implements Observer {
      * @param channel The input channel which has to be monitered
      */
 
-    public void recordChannel(Buffer channel) {
-        System.out.println("Recording Incoming channels"+channel.getLabel());
+    public void recordChannel(Buffer channel){
+        channel.startRecord=channel.getTotalMessageCount();
+        Runnable r1=new ChannelRecorder(channel,this);
+        Thread t=new Thread(r1);
+        t.start();
+        recorderList.put(channel,t);
+        int lastIdx = channel.getTotalMessageCount();
+        System.out.println("\nStart Recording from process:"+channel.startRecord+ "for channel"+channel.getLabel()+"lastIndexis:"+lastIdx);
+
+
         //Here print the value stored in the inChannels to stdout or file
 
         //TODO:Homework: Channel will have messages from before a marker has arrived. Record messages only after a
         //               marker has arrived.
         //               [hint: Use the getTotalMessageCount () method to get the messages received so far.
-        int lastIdx = channel.getTotalMessageCount();
-        List<Message> recordedMessagesSinceMarker = new ArrayList<>();
+
+        //List<Message> recordedMessagesSinceMarker = new ArrayList<>();
             //TODO: Homework: Record messages
             // [Hint: Get the array that is storing the messages from the channel. Remember that the Buffer class
             // has a member     private List<Message> messages;  which stores all the messages received.
@@ -162,35 +174,31 @@ public class Processor implements Observer {
      * Processes the message received in the buffer
      */
     public void update(Observable observable, Object arg) {
-        //Buffer text=(Buffer) observable;
-        //Message message = text.getMessage(0);
         Message message=(Message) arg;
-
         if (message.getMessageType().equals(MessageType.MARKER)) {
             System.out.println("Recieved Marker Message by:"+this.id);
             Buffer fromChannel = (Buffer) observable;
             //TODO: homework Record from Channel as Empty
             //TODO: add logic here so that if the marker comes back to the initiator then it should stop recording
             if (isFirstMarker()) {
-                System.out.println("Recieved first Marker Message by:!"+this.id+" On: "+fromChannel.getLabel());
-                this.channelMarkerCount.put(fromChannel,1);
+                if (ans == 0) {
+                    ans = num;
+                }
+                System.out.println("Recieved first Marker Message by:!" + this.id + " On: " + fromChannel.getLabel());
+                this.channelMarkerCount.put(fromChannel, 1);
                 this.recordMyCurrentState();
                 recordChannelAsEmpty(fromChannel);
                 channelMarkerCount.put(fromChannel, channelMarkerCount.get(fromChannel) + 1); //don't need this
-                for(Buffer incomingChannel:this.inChannels){
-                    if(incomingChannel!=fromChannel){
+                for (Buffer incomingChannel : this.inChannels) {
+                    if (incomingChannel != fromChannel) {
                         recordChannel(incomingChannel);
                     }
                 }
-                Message markerMessage=new Message(MessageType.MARKER);
-
-                if(ans ==0 ) {
-                    ans = num;
+                Message markerMessage = new Message(MessageType.MARKER);
+                for (Buffer outgoingChannel : this.outChannels) {
+                    sendMessgeTo(markerMessage, outgoingChannel);
                 }
-
-                for (Buffer outgoingChannel:this.outChannels){
-                    sendMessgeTo(message,outgoingChannel);
-                }
+            }
 
 
                 //From the other incoming Channels (excluding the fromChannel which has sent the marker
@@ -199,9 +207,26 @@ public class Processor implements Observer {
                 // Exclude the "Channel from which marker has arrived.
 
 
-            } else {
+             else {
+                fromChannel.stopRecord=fromChannel.getTotalMessageCount();
                 System.out.println("Recieved Duplicated Marker Message By:"+this.id+" On: "+fromChannel.getLabel());
                 System.out.println("Stop Recording the channel"+fromChannel.getLabel()+"By Process:"+this.id);
+                fromChannel.start=false;
+
+                int size=fromChannel.getTotalMessageCount();
+                synchronized (this) {
+                    System.out.println("----------Printing Channel "+ fromChannel.getLabel()+ "bufffer!!--------");
+                    System.out.println("Start Index:"+fromChannel.startRecord);
+                    System.out.println("Stop Index:"+fromChannel.stopRecord);
+                    recorderList.get(fromChannel).interrupt();
+
+
+
+
+//                    for (int i=0;i<messageSinceMarker.size();i++){
+//                        System.out.println("-->"+fromChannel.messageSinceRecord.get(i).messageType);
+//                    }
+                }
                 //this.channelMarkerCount.remove(fromChannel);
                 //System.out.println("should be false!->"+this.channelMarkerCount.containsKey(fromChannel));
                 //Means it isDuplicateMarkerMessage.
@@ -228,11 +253,12 @@ public class Processor implements Observer {
      * 3. Record incoming channels
      */
     public void initiateSnapShot() throws InterruptedException {
-        System.out.println("In initiate snapshot");
         recordMyCurrentState();
         //TODO: Follow steps from Chandy Lamport algorithm. Send out a marker message on outgoing channel
         //[Hint: Use the sendMessgeTo method
         Message markerMessage=new Message(MessageType.MARKER);
+        inChannels.get(0).startRecord=inChannels.get(0).getTotalMessageCount();
+        inChannels.get(1).startRecord=inChannels.get(1).getTotalMessageCount();
         for(Buffer inChannel:this.inChannels){
             //System.out.println("Recording incoming channels"+inChannel.getLabel());
             this.recordChannel(inChannel);
@@ -247,9 +273,6 @@ public class Processor implements Observer {
             System.out.println("Sending MarkerMessage to:"+outChannel.getLabel());
             this.channelMarkerCount.put(outChannel,1);
             sendMessgeTo(markerMessage,outChannel);
-            Thread.sleep(4000);
-
-
         }
 
 
@@ -278,6 +301,7 @@ public class Processor implements Observer {
      * getter for the process ID.
      * @return
      */
+
     public int getId(){
 
         return id;

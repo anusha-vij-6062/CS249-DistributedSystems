@@ -1,10 +1,30 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 /**
  * Created by tphadke on 9/27/17.
  */
 public class Main {
+
+    public static void printRecordedChannelMessages(Processor p){
+        for(Map.Entry<Buffer,List<Message>> entry : p.channelState.entrySet()){
+            String lab = entry.getKey().getLabel();
+            System.out.print("For channel "+ lab+": ");
+            for(Message mm : entry.getValue()){
+                System.out.print(mm.getMessageType().toString()+" ");
+            }
+            System.out.println();
+
+        }
+    }
+
+    public static void printProcessorState(Processor p){
+        System.out.println("Processor "+p.getId()+": Recorded State:" + p.ans);
+    }
+
+
+
 
     public static void main(String args[]) throws InterruptedException {
 
@@ -66,14 +86,24 @@ public class Main {
         t1.start();
         t2.start();
         t3.start();
-
-        Thread.sleep(3000);
+        Thread.sleep(200);
 
         processor1.initiateSnapShot();
+        System.out.println("----------------------3----------------------------------------------");
+        Thread.sleep(100);
+//        t1.interrupt();
+//        t2.interrupt();
+//        t3.interrupt();
+        Thread.sleep(100);
 
-        System.out.println("processor1.ans = " + processor1.ans);
-        System.out.println("processor2.ans = " + processor2.ans);
-        System.out.println("processor3.ans = " + processor3.ans);
+        printProcessorState(processor1);
+        printProcessorState(processor2);
+        printProcessorState(processor3);
+        printRecordedChannelMessages(processor1);
+        printRecordedChannelMessages(processor2);
+        printRecordedChannelMessages(processor3);
+        System.out.println("----------------------3----------------------------------------------");
+        System.exit(0);
 
     }
 

@@ -14,10 +14,16 @@ import java.util.Observable;
 public class Buffer extends Observable {
     String label;
     private List<Message> messages;
+    int startRecord=0;
+    int stopRecord=0;
+    boolean start;
+    List<Message> messageSinceRecord;
 
     /**
      * Creates empty buffer
      */
+
+
     public Buffer() {
         this.messages = new ArrayList<>();
     }
@@ -28,7 +34,14 @@ public class Buffer extends Observable {
     public Buffer(String label) {
         messages = new ArrayList<>();
         this.label = label;
+        this.start=false;
+        messageSinceRecord=new ArrayList<>();
     }
+    public List<Message> getMessage(){
+        return this.messages;
+    }
+
+
 
     public String getLabel() {
         return label;
@@ -49,6 +62,9 @@ public class Buffer extends Observable {
      */
     public void saveMessage(Message message) {
         this.messages.add(message);
+//        if(start){
+//            messageSinceRecord.add(message);
+//        }
         setChanged();
         notifyObservers(message);
     }
