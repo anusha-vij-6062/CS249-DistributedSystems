@@ -117,7 +117,6 @@ public class Main {
         Thread.sleep(10);
         m.processor1.initiateSnapShot();
         m.printSnapshot();
-        m.printMessageBuffers(m.processor3);
         System.exit(0);
 
     }
