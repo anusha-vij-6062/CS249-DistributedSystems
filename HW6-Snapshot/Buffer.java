@@ -17,7 +17,7 @@ public class Buffer extends Observable {
     int startRecord=0;
     int stopRecord=0;
     boolean start;
-    List<Message> messageSinceRecord;
+   
 
 
     /**
@@ -27,7 +27,6 @@ public class Buffer extends Observable {
         messages = new ArrayList<>();
         this.label = label;
         this.start=false;
-        messageSinceRecord=new ArrayList<>();
     }
     public List<Message> getMessage(){
         return this.messages;
