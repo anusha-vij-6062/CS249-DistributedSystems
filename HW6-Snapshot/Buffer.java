@@ -10,7 +10,7 @@ import java.util.Observable;
  * @author Sample
  * @version 1.0
  */
-//A channel should have a buffer associated with it.
+
 public class Buffer extends Observable {
     String label;
     private List<Message> messages;
@@ -19,14 +19,6 @@ public class Buffer extends Observable {
     boolean start;
     List<Message> messageSinceRecord;
 
-    /**
-     * Creates empty buffer
-     */
-
-
-    public Buffer() {
-        this.messages = new ArrayList<>();
-    }
 
     /**
      * Creates empty buffer
@@ -62,9 +54,6 @@ public class Buffer extends Observable {
      */
     public void saveMessage(Message message) {
         this.messages.add(message);
-//        if(start){
-//            messageSinceRecord.add(message);
-//        }
         setChanged();
         notifyObservers(message);
     }

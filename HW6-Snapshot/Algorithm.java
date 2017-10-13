@@ -11,8 +11,6 @@ public class Algorithm {
     Processor processor1, processor2, processor3;
 
     public Algorithm(Processor processor1, Processor processor2, Processor processor3) {
-        //TODO: Homeork: Initialize processors so that they represent the topology of 3 processor system
-
         this.processor1 = processor1;
         this.processor2 = processor2;
         this.processor3 = processor3;
@@ -22,56 +20,42 @@ public class Algorithm {
         while (true) {
             this.send(processor2, processor1.getOutChannelByLabel("12"));
             this.compute(processor1);
-            Thread.sleep(13);
+            Thread.sleep(1);
             this.send(processor3, processor1.getOutChannelByLabel("13"));
             this.compute(processor1);
-           //phi5
-
         }
     }
 
-    /**
-     * TODO: Homework: Implement send message from processor1 to different processors. Add a time gap betweeen two different
-     * send events. Add computation events between two diferent sends.
-     * [Hint: Create a loop that kills time, sleep , wait on somevalue etc..]
-     * <p>
-     * <p>
-     * // Write hard coded execution plan for processors
-     **/
     public void executionPlanP2() throws InterruptedException {
         while (true) {
             this.send(processor1, processor2.getOutChannelByLabel("21"));
             this.compute(processor2);
-            Thread.sleep(10);
+            Thread.sleep(1);
             this.send(processor3, processor2.getOutChannelByLabel("23"));
             this.compute(processor2);
         }
     }
 
 
-    // Write hard coded execution plan for processors
     public void executionPlanP3() throws InterruptedException{
         while (true) {
             this.send(processor1, processor3.getOutChannelByLabel("31"));
-            Thread.sleep(10);
+            Thread.sleep(2);
             this.send(processor2, processor3.getOutChannelByLabel("32"));
             this.compute(processor3);
         }
 
     }
 
-    /**
-     * A dummy computation.
-     * @param p
-     */
-    public void compute(Processor p) {
-        System.out.println("Doing some computation on " + p.getClass().getSimpleName());
-    }
-    /**
+    /***
      *
-     * @param to processor to which message is sent
-     * @param channel the incoming channel on the to processor that will receive this message
+     * @param p Dummy class to perform some computation
      */
+
+    public void compute(Processor p) {
+        ;
+    }
+
     public void send(Processor to, Buffer channel) {
         to.sendMessgeTo(new Message(MessageType.ALGORITHM), channel); // ALGORITHM
     }

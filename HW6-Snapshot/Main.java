@@ -6,27 +6,16 @@ import java.util.*;
  * Created by tphadke on 9/27/17.
  */
 public class Main {
+    ArrayList<Processor> processorList;
+    Processor processor1,processor2,processor3;
+    Algorithm algo;
 
-    public static void printRecordedChannelMessages(Processor p){
-        for(Map.Entry<Buffer,List<Message>> entry : p.channelState.entrySet()){
-            String lab = entry.getKey().getLabel();
-            System.out.print("For channel "+ lab+": ");
-            for(Message mm : entry.getValue()){
-                System.out.print(mm.getMessageType().toString()+" ");
-            }
-            System.out.println();
-
-        }
+    Main(){
+        init();
     }
 
-    public static void printProcessorState(Processor p){
-        System.out.println("Processor "+p.getId()+": Recorded State:" + p.ans);
-    }
-
-
-
-
-    public static void main(String args[]) throws InterruptedException {
+    private void init() {
+        processorList=new ArrayList<>();
 
         //Channels from P3 to P1 and P2 to P1
         Buffer channelP31 = new Buffer("31");
@@ -47,7 +36,8 @@ public class Main {
         List<Buffer> outChannelsP1 = new ArrayList<>();
         outChannelsP1.add(channelP12);
         outChannelsP1.add(channelP13);
-        Processor processor1 = new Processor(1, inChannelsP1, outChannelsP1); //Only observes in channels.
+        this.processor1 = new Processor(1, inChannelsP1, outChannelsP1); //Only observes in channels.
+        processorList.add(processor1);
 
         List<Buffer> inChannelsP2 = new ArrayList<>();
         inChannelsP2.add(channelP12);
@@ -55,7 +45,8 @@ public class Main {
         List<Buffer> outChannelsP2 = new ArrayList<>();
         outChannelsP2.add(channelP21);
         outChannelsP2.add(channelP23);
-        Processor processor2 = new Processor(2, inChannelsP2, outChannelsP2); //Only observes in channels.
+        this.processor2 = new Processor(2, inChannelsP2, outChannelsP2); //Only observes in channels.
+        processorList.add(processor2);
 
 
         List<Buffer> inChannelsP3 = new ArrayList<>();
@@ -64,17 +55,11 @@ public class Main {
         List<Buffer> outChannelsP3 = new ArrayList<>();
         outChannelsP3.add(channelP31);
         outChannelsP3.add(channelP32);
-        Processor processor3 = new Processor(3, inChannelsP3, outChannelsP3); //Only observes in channels.
-
-        /**
-         * Choose one processor to initiale a snapshot. Please note that any processor has the capability to
-         * initiate a snapshot.
-         * //TODO: Homework: initiate snapshot
-         * [Hint: call the initiateSnapshot method ]
-         */
+        this.processor3 = new Processor(3, inChannelsP3, outChannelsP3); //Only observes in channels.
+        processorList.add(processor3);
 
         //added the following to spawn algorithm threads
-        Algorithm algo = new Algorithm(processor1, processor2, processor3);
+        this.algo = new Algorithm(processor1, processor2, processor3);
         Runnable r1 = new Executor(algo, algo.processor1);
         Runnable r2 = new Executor(algo, algo.processor2);
         Runnable r3 = new Executor(algo, algo.processor3);
@@ -86,23 +71,53 @@ public class Main {
         t1.start();
         t2.start();
         t3.start();
-        Thread.sleep(200);
+    }
 
-        processor1.initiateSnapShot();
-        System.out.println("----------------------3----------------------------------------------");
-        Thread.sleep(100);
-//        t1.interrupt();
-//        t2.interrupt();
-//        t3.interrupt();
-        Thread.sleep(100);
+    void printRecordedChannelMessages(Processor p){
+        for(Map.Entry<Buffer,List<Message>> entry : p.channelState.entrySet()){
+            String lab = entry.getKey().getLabel();
+            System.out.print("For channel "+ lab+": ");
+            for(Message mm : entry.getValue()){
+                System.out.print(mm.getMessageType().toString()+" ");
+            }
+            System.out.println();
+        }
+    }
 
-        printProcessorState(processor1);
-        printProcessorState(processor2);
-        printProcessorState(processor3);
-        printRecordedChannelMessages(processor1);
-        printRecordedChannelMessages(processor2);
-        printRecordedChannelMessages(processor3);
-        System.out.println("----------------------3----------------------------------------------");
+    void printProcessorState(Processor p){
+        System.out.println("Processor "+p.getId()+": Recorded State:" + p.ans);
+    }
+
+    public void printSnapshot(){
+        synchronized (this){
+            System.out.println("----------------------SNAPSHOT RESULTS----------------------------------------------");
+            for(Processor p: this.processorList){
+                printProcessorState(p);
+            }
+            for(Processor p: this.processorList){
+                printRecordedChannelMessages(p);
+            }
+            System.out.println("------------------------------------------------------------------------------------");
+        }
+    }
+
+    public void printMessageBuffers(Processor p){
+        for(Buffer inb: p.inChannels){
+            System.out.println("\n"+inb.getLabel()+" \nStart :"+inb.startRecord+ " \nStop: "+inb.stopRecord);
+            for(int i=0;i<inb.getTotalMessageCount();i++)
+                System.out.printf(inb.getMessage(i).messageType.toString()+" , ");
+        }
+    }
+
+
+
+    public static void main(String args[]) throws InterruptedException {
+        Main m=new Main();
+        System.out.println("Initiating Snapshot");
+        Thread.sleep(10);
+        m.processor1.initiateSnapShot();
+        m.printSnapshot();
+        m.printMessageBuffers(m.processor3);
         System.exit(0);
 
     }
