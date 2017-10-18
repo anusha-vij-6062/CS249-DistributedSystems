@@ -6,6 +6,7 @@
 import java.util.Observable;
 
 public class Buffer extends Observable{
+
     private Message message;
     private String channelLabel; //label/name for channel
 

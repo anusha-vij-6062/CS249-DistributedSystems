@@ -45,12 +45,22 @@ public class Processor implements Observer {
 
     /**
      * Send message to this Processor by putting a message
-     * in its inChannel. This causes update() of this processor
+     * in its inChannel. This causes update() of this processor.
+     * This is used by other processors to send message to THIS processor.
      * to be called.
      * @param msg
      */
     public void sendMessageToMyInBuffer(Message msg){
         inChannel.setMessage(msg);
+    }
+
+    /**
+     * Sends a message with this processors id to it's left neighbor.
+     * It puts the message in the outChannel, which is the inChannel of the
+     * left neighbor. So this triggers the update method of the left neigbhor.
+     */
+    public void sendMyIdToLeftNeighbor(){
+        this.outChannel.setMessage(new Message(MessageType.IDENTIFIER,this.procId));
     }
 
     /**
@@ -60,9 +70,9 @@ public class Processor implements Observer {
     @Override
     synchronized public void update(Observable observable, Object o) {
         Message msgReceived = inChannel.getMessage();
-        System.out.printf("P%d received %s message with id=%d %n",this.procId,msgReceived.getMessageType().toString(),msgReceived.getIdNumber());
 
         if(msgReceived.getMessageType().equals(MessageType.IDENTIFIER)){
+            System.out.printf("P%d received %s message with id=%d %n",this.procId,msgReceived.getMessageType().toString(),msgReceived.getIdNumber());
             int senderId = msgReceived.getIdNumber();
             if(senderId>this.procId){
                 //if the identifier is greater than its own id
@@ -77,10 +87,11 @@ public class Processor implements Observer {
                 //declares self a leader by sending terminating msg to left neighbor
                 //and terminating as a leader
                 this.isLeader = true;
-                //for now we pass the leader id in with the message. In case we want all proc to record leader
+                //We pass the leader id in with the message. In case we want all proc to record leader in some field.
                 outChannel.setMessage(new Message(MessageType.TERMINATE,this.procId));
             }
         }else if(msgReceived.getMessageType().equals(MessageType.TERMINATE)){
+            System.out.printf("P%d received %s message%n",this.procId,msgReceived.getMessageType().toString());
             if(isLeader){
                 //do nothing, as this is just the TERMINATE message it send went full circle.
             }else{

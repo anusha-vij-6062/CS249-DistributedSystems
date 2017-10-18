@@ -17,17 +17,34 @@ public class Main {
         Processor P3 = new Processor(3,C43,C32);
         Processor P4 = new Processor(4,C14,C43);
 
-        //Each processor sends a message with its identifier to its left neighbor
-        P4.sendMessageToMyInBuffer(new Message(MessageType.IDENTIFIER,1));
-        P1.sendMessageToMyInBuffer(new Message(MessageType.IDENTIFIER,2));
-        P2.sendMessageToMyInBuffer(new Message(MessageType.IDENTIFIER,3));
-        P3.sendMessageToMyInBuffer(new Message(MessageType.IDENTIFIER,4));
+        Runnable r1 = new Executor(P1);
+        Runnable r2 = new Executor(P2);
+        Runnable r3 = new Executor(P3);
+        Runnable r4 = new Executor(P4);
+
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+        Thread t3 = new Thread(r3);
+        Thread t4 = new Thread(r4);
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+
+        //Sleep 1 sec for threads to complete
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //Check who is leader
         printProcInfo(P1);
         printProcInfo(P2);
         printProcInfo(P3);
         printProcInfo(P4);
+
     }
 
     /**
