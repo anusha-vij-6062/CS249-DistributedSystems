@@ -2,48 +2,69 @@
  * Leader Election in Asyn Ring O(n^2) Algorithm
  * CS 249 Team #2 Rashmeet Khanuja, Anusha Vijay, Steven Yen
  */
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args){
+    ArrayList<Processor> pList;
 
-        Buffer C14 = new Buffer("C14");
+    /**
+     * Constructor - calls init to initialize graph.
+     */
+    public Main(){
+        init();
+    }
+
+    /**
+     * Initializes a ring topology by creating the
+     * processors, setting their in and out channels,
+     * and adding them to the pList field.
+     */
+    public void init(){
+        pList = new ArrayList<>();
+
         Buffer C43 = new Buffer("C43");
         Buffer C32 = new Buffer("C32");
         Buffer C21 = new Buffer("C21");
+        Buffer C10 = new Buffer("C10");
+        Buffer C04 = new Buffer("C04");
 
-        Processor P1 = new Processor(1,C21,C14);
+        Processor P0 = new Processor(0,C10,C04);
+        Processor P1 = new Processor(1,C21,C10);
         Processor P2 = new Processor(2,C32,C21);
         Processor P3 = new Processor(3,C43,C32);
-        Processor P4 = new Processor(4,C14,C43);
+        Processor P4 = new Processor(4,C04,C43);
 
-        Runnable r1 = new Executor(P1);
-        Runnable r2 = new Executor(P2);
-        Runnable r3 = new Executor(P3);
-        Runnable r4 = new Executor(P4);
+        pList.add(P0);
+        pList.add(P1);
+        pList.add(P2);
+        pList.add(P3);
+        pList.add(P4);
 
-        Thread t1 = new Thread(r1);
-        Thread t2 = new Thread(r2);
-        Thread t3 = new Thread(r3);
-        Thread t4 = new Thread(r4);
+    }
 
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
+    public static void main(String[] args){
 
-        //Sleep 1 sec for threads to complete
+        Main m = new Main();
+
+        //create and start all processor threads
+        for(Processor pi : m.pList){
+            Runnable ri = new Executor(pi);
+            Thread ti = new Thread(ri);
+            ti.start();
+        }
+
+        //Sleep 1 sec for threads to complete before printing result
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        //Check who is leader
-        printProcInfo(P1);
-        printProcInfo(P2);
-        printProcInfo(P3);
-        printProcInfo(P4);
+        //print info for all processor threads, showing who's elected leader
+        for(Processor pi : m.pList){
+            printProcInfo(pi);
+        }
 
     }
 
