@@ -15,8 +15,8 @@ The program can be run by importing the project folder into an IDE like Eclipse 
 # Input
 Used as input a ring with 4 processors with IDs 0, 1, 2, 3, and 4.
 
-(P0)-->(P1)-->(P2)-->(P3)-->(P4)->
-|________________________________|                             
+->(P0)-->(P1)-->(P2)-->(P3)-->(P4)-><br>
+|__________________________________|                             
 
 
 # Output
