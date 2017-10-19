@@ -13,25 +13,36 @@ The program can be run by importing the project folder into an IDE like Eclipse 
 5. The output (like the example shown below) will be displayed in the terminal.<br>
 
 # Input
-Used as input a ring with 4 processors with IDs 1, 2, 3, and 4.
+Used as input a ring with 4 processors with IDs 0, 1, 2, 3, and 4.
+
+(P0)-->(P1)-->(P2)-->(P3)-->(P4)->
+|________________________________|                             
+
 
 # Output
 ```
-P4 received IDENTIFIER message with id=1 
+P4 received IDENTIFIER message with id=0 
 P3 received IDENTIFIER message with id=4 
 P2 received IDENTIFIER message with id=3 
 P1 received IDENTIFIER message with id=2 
+P0 received IDENTIFIER message with id=1 
+P4 received IDENTIFIER message with id=1 
+P0 received IDENTIFIER message with id=2 
 P4 received IDENTIFIER message with id=2 
 P1 received IDENTIFIER message with id=3 
+P0 received IDENTIFIER message with id=3 
 P4 received IDENTIFIER message with id=3 
 P2 received IDENTIFIER message with id=4 
 P1 received IDENTIFIER message with id=4 
+P0 received IDENTIFIER message with id=4 
 P4 received IDENTIFIER message with id=4 
 P4 declares self as leader 
 P3 received TERMINATE message
 P2 received TERMINATE message
 P1 received TERMINATE message
+P0 received TERMINATE message
 P4 received TERMINATE message
+Processor P0 is leader? false
 Processor P1 is leader? false
 Processor P2 is leader? false
 Processor P3 is leader? false
