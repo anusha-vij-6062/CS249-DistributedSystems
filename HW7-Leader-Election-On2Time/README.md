@@ -16,7 +16,7 @@ The program can be run by importing the project folder into an IDE like Eclipse 
 Used as input a ring with 4 processors with IDs 1, 2, 3, and 4.
 
 # Output
-'''
+```
 P4 received IDENTIFIER message with id=1 
 P3 received IDENTIFIER message with id=4 
 P2 received IDENTIFIER message with id=3 
@@ -38,7 +38,7 @@ Processor P3 is leader? false
 Processor P4 is leader? true
 
 Process finished with exit code 0
-'''
+```
 
 # File List
 Buffer.java <br>
