@@ -32,6 +32,7 @@ Change the init2() in the the Main constructor to init() to use this ring.
 
 
 # Output
+
 Output for CASE 1 (see above for input)
 ```
 P12 received IDENTIFIER message with id=44 
@@ -66,8 +67,9 @@ Processor P33 is leader? false
 
 Process finished with exit code 0
 ```
-<br>
+
 Output for CASE 2 (see above for input)
+
 ```
 P4 received IDENTIFIER message with id=0 
 P3 received IDENTIFIER message with id=4 
