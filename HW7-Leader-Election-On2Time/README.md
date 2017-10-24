@@ -23,9 +23,9 @@ Ring with 6 processors with IDs 1, 44, 12, 10, 50, and 33 as shown on lecture sl
 This ring is initialized in the init2() method in Main.
 
 CASE #2
-Alternatively, used as input a ring with 5 processors with IDs 0, 1, 2, 3, and 4 as shown on lecture slide 14.<br>
+Alternatively, used as input a ring with 5 processors with IDs 2, 1, 0, 4, and 3 as shown on lecture slide 14.<br>
 
-->(P0)-->(P1)-->(P2)-->(P3)-->(P4)-><br>
+->(P2)-->(P1)-->(P0)-->(P4)-->(P3)-><br>
 |__________________________________|  
 
 Change the init2() in the the Main constructor to init() to use this ring.                           
