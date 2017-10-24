@@ -94,6 +94,7 @@ public class Processor implements Observer {
             System.out.printf("P%d received %s message%n",this.procId,msgReceived.getMessageType().toString());
             if(isLeader){
                 //do nothing, as this is just the TERMINATE message it send went full circle.
+                System.out.println("TERMINATE message went around entire ring. Algorithm done.");
             }else{
                 outChannel.setMessage(msgReceived); //forward termination message
                 this.isLeader = false; //terminate as non-leader

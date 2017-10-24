@@ -13,13 +13,59 @@ The program can be run by importing the project folder into an IDE like Eclipse 
 5. The output (like the example shown below) will be displayed in the terminal.<br>
 
 # Input
-Used as input a ring with 4 processors with IDs 0, 1, 2, 3, and 4.
+We tried two different inputs for this program.
+
+CASE #1
+Ring with 6 processors with IDs 1, 33, 50, 10, 12, and 44 as shown on lecture slide 10.
+->(P01)-->(P33)-->(P50)-->(P10)-->(P12)-->(P44)-><br>
+|_______________________________________________| 
+
+This ring is initialized in the init2() method in Main.
+
+CASE #2
+Alternatively, used as input a ring with 5 processors with IDs 0, 1, 2, 3, and 4 as shown on lecture slide 14.
 
 ->(P0)-->(P1)-->(P2)-->(P3)-->(P4)-><br>
-|__________________________________|                             
+|__________________________________|  
+
+Change the init2() in the the Main constructor to init() to use this ring.                           
 
 
 # Output
+Output for CASE #1 (see above)
+```
+P33 received IDENTIFIER message with id=1 
+P1 received IDENTIFIER message with id=44 
+P44 received IDENTIFIER message with id=12 
+P12 received IDENTIFIER message with id=10 
+P10 received IDENTIFIER message with id=50 
+P50 received IDENTIFIER message with id=33 
+P12 received IDENTIFIER message with id=50 
+P33 received IDENTIFIER message with id=44 
+P44 received IDENTIFIER message with id=50 
+P50 received IDENTIFIER message with id=44 
+P1 received IDENTIFIER message with id=50 
+P33 received IDENTIFIER message with id=50 
+P50 received IDENTIFIER message with id=50 
+P50 declares self as leader 
+P10 received TERMINATE message
+P12 received TERMINATE message
+P44 received TERMINATE message
+P1 received TERMINATE message
+P33 received TERMINATE message
+P50 received TERMINATE message
+TERMINATE message went around entire ring. Algorithm done.
+Processor P1 is leader? false
+Processor P33 is leader? false
+Processor P50 is leader? true
+Processor P10 is leader? false
+Processor P12 is leader? false
+Processor P44 is leader? false
+
+Process finished with exit code 0
+```
+<br>
+Output for CASE #2 (see above)
 ```
 P4 received IDENTIFIER message with id=0 
 P3 received IDENTIFIER message with id=4 
@@ -42,6 +88,7 @@ P2 received TERMINATE message
 P1 received TERMINATE message
 P0 received TERMINATE message
 P4 received TERMINATE message
+TERMINATE message went around entire ring. Algorithm done.
 Processor P0 is leader? false
 Processor P1 is leader? false
 Processor P2 is leader? false
