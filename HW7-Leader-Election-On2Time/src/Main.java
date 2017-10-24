@@ -51,27 +51,26 @@ public class Main {
     public void init2(){
         pList = new ArrayList<>();
 
-        Buffer P01toP33 = new Buffer("01to33");
-        Buffer P33toP50 = new Buffer("33to50");
-        Buffer P50toP10 = new Buffer("50to10");
-        Buffer P10toP12 = new Buffer("10to12");
-        Buffer P12toP44 = new Buffer("12to44");
-        Buffer P44toP01 = new Buffer("44to01");
+        Buffer P01toP44 = new Buffer("01to44");
+        Buffer P44toP12 = new Buffer("44to12");
+        Buffer P12toP10 = new Buffer("12to10");
+        Buffer P10toP50 = new Buffer("10to50");
+        Buffer P50toP33 = new Buffer("50to33");
+        Buffer P33toP01 = new Buffer("33to01");
 
-
-        Processor P01 = new Processor(1,P44toP01,P01toP33);
-        Processor P33 = new Processor(33,P01toP33,P33toP50);
-        Processor P50 = new Processor(50,P33toP50,P50toP10);
-        Processor P10 = new Processor(10,P50toP10,P10toP12);
-        Processor P12 = new Processor(12,P10toP12,P12toP44);
-        Processor P44 = new Processor(44,P12toP44,P44toP01);
+        Processor P01 = new Processor(1,P33toP01,P01toP44);
+        Processor P44 = new Processor(44,P01toP44,P44toP12);
+        Processor P12 = new Processor(12,P44toP12,P12toP10);
+        Processor P10 = new Processor(10,P12toP10,P10toP50);
+        Processor P50 = new Processor(50,P10toP50,P50toP33);
+        Processor P33 = new Processor(33,P50toP33,P33toP01);
 
         pList.add(P01);
-        pList.add(P33);
-        pList.add(P50);
-        pList.add(P10);
-        pList.add(P12);
         pList.add(P44);
+        pList.add(P12);
+        pList.add(P10);
+        pList.add(P50);
+        pList.add(P33);
 
     }
 
