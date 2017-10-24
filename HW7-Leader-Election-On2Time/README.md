@@ -16,14 +16,14 @@ The program can be run by importing the project folder into an IDE like Eclipse 
 We tried two different inputs for this program.
 
 CASE #1
-Ring with 6 processors with IDs 1, 44, 12, 10, 50, and 33 as shown on lecture slide 10.
+Ring with 6 processors with IDs 1, 44, 12, 10, 50, and 33 as shown on lecture slide 10.<br>
 ->(P01)-->(P44)-->(P12)-->(P10)-->(P50)-->(P33)-><br>
 |_______________________________________________| 
 
 This ring is initialized in the init2() method in Main.
 
 CASE #2
-Alternatively, used as input a ring with 5 processors with IDs 0, 1, 2, 3, and 4 as shown on lecture slide 14.
+Alternatively, used as input a ring with 5 processors with IDs 0, 1, 2, 3, and 4 as shown on lecture slide 14.<br>
 
 ->(P0)-->(P1)-->(P2)-->(P3)-->(P4)-><br>
 |__________________________________|  
@@ -32,7 +32,7 @@ Change the init2() in the the Main constructor to init() to use this ring.
 
 
 # Output
-Output for CASE #1 (see above)
+Output for CASE 1 (see above for input)
 ```
 P12 received IDENTIFIER message with id=44 
 P44 received IDENTIFIER message with id=1 
@@ -67,7 +67,7 @@ Processor P33 is leader? false
 Process finished with exit code 0
 ```
 <br>
-Output for CASE #2 (see above)
+Output for CASE 2 (see above for input)
 ```
 P4 received IDENTIFIER message with id=0 
 P3 received IDENTIFIER message with id=4 
