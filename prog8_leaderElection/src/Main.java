@@ -58,8 +58,11 @@ public class Main {
         }
 
         //Sleep 1 sec for threads to complete before printing result
-        Thread.sleep(10000);
+        Thread.sleep(15000);
 
+        for(Thread t : m.ThreadList){
+            t.join();
+        }
 
         //print info for all processor threads, showing who's elected leader
         for(Processor pi : m.pList){

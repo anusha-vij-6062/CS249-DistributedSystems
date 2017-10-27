@@ -22,18 +22,18 @@ public class Executor implements Runnable{
      */
     @Override
     public void run() {
-        try {
-            proc.start();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        if(proc.asleep){
-//            proc.asleep=false;
-//            System.out.println("Sending Start message from"+this.proc.getProcId());
-//            Message startMessage=new Message(MessageType.PROBE,proc.getProcId(),0,0);
-//            proc.getLeftProcessor().sendMessageToMyBuffer(startMessage,proc);
-//            proc.getRightProcessor().sendMessageToMyBuffer(startMessage,proc);
+//        try {
+//            proc.start();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
+        if(proc.asleep){
+            proc.asleep=false;
+            System.out.println("Sending Start message from"+this.proc.getProcId());
+            Message startMessage=new Message(MessageType.PROBE,proc.getProcId(),0,1);
+            proc.getLeftProcessor().sendMessageToMyBuffer(startMessage,proc);
+            proc.getRightProcessor().sendMessageToMyBuffer(startMessage,proc);
+        }
 
     }
 
