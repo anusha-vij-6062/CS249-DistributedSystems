@@ -23,6 +23,18 @@ public class Message {
         distance = d;
     }
 
+    public Message(MessageType t, Integer idNum){
+        messageType = t;
+        idNumber = idNum;
+    }
+
+    public Message(MessageType t){
+        messageType = t;
+    }
+
+
+
+
     public MessageType getMessageType(){
         return messageType;
     }

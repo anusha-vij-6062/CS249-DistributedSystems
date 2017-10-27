@@ -15,75 +15,45 @@ public class Processor implements Observer {
     Boolean isLeader; //is this processor a leader?
     Boolean asleep;
     Buffer messageBuffer;
-    Boolean [] recievedReply;
+    Boolean recievedLeft;
+    Boolean recievedRight;
+    int leader;
+    boolean sentClean;
+    
 
 
-    /**
-     * Constructor set inChannel, outChannel, and makes this
-     * Processor a observer of its inChannel.
-     * Initializes isLeader to false
-     * @param id identifier of this processor
-     */
-    public Processor(int id){
+    public Processor(int id) {
         procId = id;
         asleep = true;
         isLeader = false;
-        this.messageBuffer=new Buffer();
+        this.messageBuffer = new Buffer();
         this.messageBuffer.addObserver(this);
-        this.recievedReply=new Boolean[2];
-        recievedReply[0]=false; //left
-        recievedReply[1]=false; //right
+        recievedLeft = false; //left
+        recievedRight = false; //right
+        leader=-1;
+        sentClean=false;
     }
 
-    public void setNeighbours(Processor left,Processor right){
-        this.leftProcessor=left;
-        this.rightProcessor=right;
+    public void setNeighbours(Processor left, Processor right) {
+        this.leftProcessor = left;
+        this.rightProcessor = right;
     }
 
 
-    /**
-     * Getter for procId field.
-     */
-    public int getProcId(){
+    public int getProcId() {
         return procId;
     }
 
-    /**
-     * Getter for isLeader field.
-     */
-    public boolean getIsLeader(){
+
+    public boolean getIsLeader() {
         return isLeader;
     }
 
-    /**
-     * Send message to this Processor by putting a message
-     * in its inChannel. This causes update() of this processor.
-     * This is used by other processors to send message to THIS processor.
-     * to be called.
-     * @param msg
-     */
-    public void sendMessageToMyBuffer(Message msg,Processor sender){
-        this.messageBuffer.setMessage(msg,sender);
+
+    public void sendMessageToMyBuffer(Message msg, Processor sender) {
+        this.messageBuffer.setMessage(msg, sender);
     }
 
-//    public void start() throws InterruptedException {
-//        if(this.asleep){
-//            this.asleep=false;
-//            System.out.println("Sending Start message from"+this.getProcId());
-//            Message startMessage=new Message(MessageType.PROBE,this.getProcId(),0,0);
-//            this.getLeftProcessor().sendMessageToMyBuffer(startMessage,this);
-//            this.getRightProcessor().sendMessageToMyBuffer(startMessage,this);
-//        }
-//    }
-
-    /**
-     * Sends a message with this processors id to it's left neighbor.
-     * It puts the message in the outChannel, which is the inChannel of the
-     * left neighbor. So this triggers the update method of the left neigbhor.
-     */
-    public void sendMyIdToLeftNeighbor(){
-        //this.outChannel.setMessage(new Message(MessageType.IDENTIFIER,this.procId));
-    }
 
     public Processor getLeftProcessor() {
         return leftProcessor;
@@ -94,110 +64,161 @@ public class Processor implements Observer {
     }
 
 
-
-    /**
-     * This method is called when a message is send to the inChannel of this Processor
-     * Contains the leader election logic
-     *
-     */
     @Override
     synchronized public void update(Observable observable, Object o) {
-            messageBuffer = (Buffer) observable;
-            Message text = messageBuffer.getMessage();
-            int j = text.getIdNumber();
-            int d = text.getDistance();
-            int k = text.getPhase();
-
-            System.out.println("\nRecieved message" + text.getMessageType() + "\tBy:" + this.procId + " From:" + messageBuffer.getSender().getProcId());
+        messageBuffer = (Buffer) observable;
+        Message text = messageBuffer.getMessage();
+        Processor sender = messageBuffer.getSender();
 
 
-            if(text.getMessageType()==MessageType.PROBE)
-                messageProbe(messageBuffer,j,k,d);
+
+
+
+        switch (text.getMessageType()) {
+            case PROBE:
+                int j = text.getIdNumber();
+                int d = text.getDistance();
+                int k = text.getPhase();
+                //System.out.printf("\n<Message:%s,ID:%d,k:%d,d:%d>\n", text.getMessageType(), j, k, d);
+                if (sender.getProcId() == this.leftProcessor.procId)
+                    try {
+                        System.out.println("\nRecieved message" + text.getMessageType() + "\tBy:" + this.procId + " From:" + messageBuffer.getSender().getProcId()+"Left <ID:"+j+",k:"+k+",d:"+d+">");
+
+                        messageProbe(messageBuffer, j, k, d, true);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                else
+                    try {
+                        System.out.println("\nRecieved message" + text.getMessageType() + "\tBy:" + this.procId + " From:" + messageBuffer.getSender().getProcId()+ " Right <ID:"+j+",k:"+k+",d:"+d+">");
+                        messageProbe(messageBuffer, j, k, d, false);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                break;
+            case REPLY:
+                j = text.getIdNumber();
+                k = text.getPhase();
+                System.out.printf("\nFrom: %d,<Message:%s,ID:%d,k:%d> By:%d\n",sender.getProcId(), text.getMessageType(), j, k ,this.getProcId());
+                if (sender.getProcId() == this.leftProcessor.procId)
+
+                    try {
+                        messageReply(j, k, true);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                else
+                    try {
+                        messageReply(j, k, false);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                break;
+            case TERMINATE:
+                leader=text.getIdNumber();
+                if(leader==procId)
+                    isLeader=true;
+                System.out.println("Forwarding Terminating Message to Process:"+leftProcessor.getProcId());
+                leftProcessor.sendMessageToMyBuffer(text,this);
+                Thread.interrupted();
+                break;
+            case CLEAN:
+                System.out.println("\nRecieved CLEAN message!"+this.procId+" From"+messageBuffer.sender.procId);
+                this.recievedLeft=false;
+                this.recievedRight=false;
+                Message clean=new Message(MessageType.CLEAN);
+                if(!sentClean){
+                    sentClean=true;
+                    leftProcessor.sendMessageToMyBuffer(clean,this);}
+        }
+    }
+
+
+    synchronized void messageProbe(Buffer messageBuffer, int j, int k, int d, boolean isLeft) throws InterruptedException {
+
+        //if j== id, then terminate as leader
+        if (j == procId) {
+            isLeader = true;
+            System.out.println("\n!!!!!!Leader bitches!" + this.procId);
+            Message terminate=new Message(MessageType.TERMINATE,this.procId);
+            this.leftProcessor.sendMessageToMyBuffer(terminate,this);
+            Thread.interrupted();
+        }
+
+        //if it recieves a lower message do nothing.
+        else if (j < this.procId) {
+            //System.out.println("Probe Message from" + sender.procId + " Swallowed by:" + this.procId);
+            return;
+        }
+
+
+        // j> id and d< 2k then send (probe,j,k,d+1) to right
+        else if(j>this.procId && d < Math.pow(2,k)){
+            Message probeMessage = new Message(MessageType.PROBE, j, k, d+1);
+            if (isLeft)
+                rightProcessor.sendMessageToMyBuffer(probeMessage, this);
             else
-                try {
-                    messageReply(messageBuffer,j,k,d);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-    }
-
-    void messageProbe(Buffer messageBuffer,int j,int k,int d){
-        Processor sender = messageBuffer.getSender();
-        Message text=messageBuffer.getMessage();
-        if (text.getMessageType() == MessageType.PROBE && sender.getProcId() == this.leftProcessor.procId) {
-            if (j < this.procId) {
-                System.out.println("Probe Message from" + sender.procId + " Swallowed by:" + this.procId);
-                return;
-            }
-            if (j == this.procId) {
-                System.out.println(this.procId + ": Leader!");
-                System.exit(0);
-            }
-            if (j > this.procId && (d < Math.pow(2, k))) {
-                Message probeMessage = new Message(MessageType.PROBE, j, k, d + 1);
-                this.rightProcessor.sendMessageToMyBuffer(probeMessage, this);
-            }
-            if (j > this.procId && (d >= Math.pow(2, k))) {
-                Message replyMessage = new Message(MessageType.REPLY, j, k, -1);
-                this.leftProcessor.sendMessageToMyBuffer(replyMessage, this);
-            }
-
+                leftProcessor.sendMessageToMyBuffer(probeMessage, this);
         }
 
-        if (text.getMessageType() == MessageType.PROBE && sender.getProcId() == this.rightProcessor.procId) {
-            if (j == this.procId) {
-                System.out.println(this.procId + ": Leader!");
-                isLeader = true;
-                System.exit(0);
-            }
-            if (j > this.procId && (d < Math.pow(2, k))) {
-                Message probeMessage = new Message(MessageType.PROBE, j, k, d + 1);
-                this.leftProcessor.sendMessageToMyBuffer(probeMessage, this);
-            }
-            if (j > this.procId && (d >= Math.pow(2, k))) {
-                Message replyMessage = new Message(MessageType.REPLY, j, k, -1);
-                this.rightProcessor.sendMessageToMyBuffer(replyMessage, this);
-            }
-            if (j < this.procId) {
-                System.out.println("Probe Message from" + sender.procId + " Swallowed by:" + this.procId);
-            }
-        }
-
-    }
-
-    void messageReply(Buffer messageBuffer,int j,int k,int d) throws InterruptedException {
-        Processor sender = messageBuffer.getSender();
-        Message text=messageBuffer.getMessage();
-        if (text.getMessageType() == MessageType.REPLY && sender.procId == this.leftProcessor.procId) {
-            this.recievedReply[0] = true;
-            if (j != this.procId) {
-                Message replyMessage = new Message(MessageType.REPLY, j, k, -1);
-                rightProcessor.sendMessageToMyBuffer(replyMessage, this);
-            } else if (recievedReply[1] && this.procId == j) {
-                Message newProbeMessage = new Message(MessageType.PROBE, this.procId, k + 1, 1);
-                System.out.println("!!!!!!Phase" + k + " Winner is: " + this.procId);
-                leftProcessor.sendMessageToMyBuffer(newProbeMessage, this);
-                rightProcessor.sendMessageToMyBuffer(newProbeMessage, this);
-
-            }
-
-        }
-
-        if (text.getMessageType() == MessageType.REPLY && sender.procId == this.rightProcessor.procId) {
-            this.recievedReply[1] = true;
-            if (j != this.procId) {
-                Message replyMessage = new Message(MessageType.REPLY, j, k, -1);
+        //j >id and d>= 2k  then send reply  j,k to left
+        else if (j > this.procId && d >= (Math.pow(2, k))) {
+            Message replyMessage = new Message(MessageType.REPLY, j, k, -1);
+            if (isLeft)
                 leftProcessor.sendMessageToMyBuffer(replyMessage, this);
-            } else if (recievedReply[0] && j == this.procId) {
-                Thread.sleep(2000);
-                Message newProbeMessage = new Message(MessageType.PROBE, this.procId, k + 1, 1);
-                leftProcessor.sendMessageToMyBuffer(newProbeMessage, this);
-                rightProcessor.sendMessageToMyBuffer(newProbeMessage, this);
-
-            }
+            else
+                rightProcessor.sendMessageToMyBuffer(replyMessage, this);
 
         }
 
+       else System.out.println("Matched Nothing!");
     }
 
+    synchronized void messageReply(int j, int k, boolean isLeft) throws InterruptedException {
+        Thread.sleep(1000);
+        if (j != this.procId) {
+            if (isLeft) {
+                recievedLeft=false;
+                recievedRight=false;
+                rightProcessor.sendMessageToMyBuffer(new Message(MessageType.REPLY, j, k, -1), this);
+            } else {
+                recievedLeft=false;
+                recievedRight=false;
+                leftProcessor.sendMessageToMyBuffer(new Message(MessageType.REPLY, j, k, -1), this);
+            }
+
+        } else {
+            if (isLeft) {
+                if (recievedRight)
+                    startNewPhase(k,isLeft);
+                recievedLeft=true;
+                System.out.println("Recieved First Left by"+this.procId+" Phase"+k);
+            }
+            else{
+                if(recievedLeft)
+                    startNewPhase(k,isLeft);
+                recievedRight=true;
+                System.out.println("Recieved First Right by"+this.procId+" Phase"+k);
+            }
+        }
+    }
+
+    synchronized void startNewPhase(int k,boolean isLeft) throws InterruptedException {
+        if(isLeft)
+            System.out.println("Recieved Second Left"+this.procId+" Phase"+k);
+        System.out.println("Recieved Second Right by"+this.procId+" Phase"+k);
+        this.recievedLeft = false;
+        this.recievedRight = false;
+        Thread.sleep(100);
+        Message newPhase = new Message(MessageType.PROBE, this.procId, k + 1, 1);
+        System.out.println("---------------------------------------------------");
+        System.out.println("    Winner of Phase:" + k + " Process:" + this.procId);
+//        if(!sentClean)
+//        {this.sentClean=true;
+//        this.leftProcessor.sendMessageToMyBuffer(new Message(MessageType.CLEAN),this);}
+        Thread.sleep(100);
+        this.leftProcessor.sendMessageToMyBuffer(newPhase, this);
+        this.rightProcessor.sendMessageToMyBuffer(newPhase, this);
+    }
 }

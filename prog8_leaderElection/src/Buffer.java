@@ -29,7 +29,8 @@ public class Buffer extends Observable{
      * so the update method of the observers are called.
      * @param msg message to be set
      */
-    public void setMessage(Message msg,Processor sender){
+
+    synchronized public void setMessage(Message msg,Processor sender){
         message = msg;
         setChanged();
         this.sender=(Processor)sender;

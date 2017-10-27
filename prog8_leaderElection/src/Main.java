@@ -31,7 +31,7 @@ public class Main {
         this.pC = new Processor(11);
         this.pD = new Processor(60);
         this.pE = new Processor(50);
-        this.pF = new Processor(14);
+        this.pF = new Processor(44);
 
         this.pA.setNeighbours(pB,pF);
         this.pB.setNeighbours(pC,pA);
@@ -58,7 +58,7 @@ public class Main {
         }
 
         //Sleep 1 sec for threads to complete before printing result
-        Thread.sleep(15000);
+
 
         for(Thread t : m.ThreadList){
             t.join();
