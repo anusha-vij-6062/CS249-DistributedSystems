@@ -5,6 +5,6 @@
 
 public enum MessageType {
 
-    REPLY, PROBE,TERMINATE,CLEAN
+    REPLY, PROBE,TERMINATE
 
 }

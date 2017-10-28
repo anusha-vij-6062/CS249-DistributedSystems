@@ -29,18 +29,18 @@ public class Main {
         this.pA=new Processor(10);
         this.pB=new Processor(22);
         this.pC = new Processor(11);
-        this.pD = new Processor(60);
-        this.pE = new Processor(50);
+        //this.pD = new Processor(60);
+        //this.pE = new Processor(50);
         this.pF = new Processor(44);
 
         this.pA.setNeighbours(pB,pF);
         this.pB.setNeighbours(pC,pA);
-        this.pC.setNeighbours(pD,pB);
-        this.pD.setNeighbours(pE,pC);
-        this.pE.setNeighbours(pF,pD);
-        this.pF.setNeighbours(pA,pE);
+        this.pC.setNeighbours(pF,pB);
+        //this.pD.setNeighbours(pE,pC);
+        //this.pE.setNeighbours(pF,pD);
+        this.pF.setNeighbours(pA,pC);
 
-        pList= new ArrayList<>(Arrays.asList(pA,pB,pC,pD,pE,pF));
+        pList= new ArrayList<>(Arrays.asList(pA,pB,pC,pF));
         ThreadList=new ArrayList<>();
 
     }
@@ -58,6 +58,7 @@ public class Main {
         }
 
         //Sleep 1 sec for threads to complete before printing result
+
 
 
         for(Thread t : m.ThreadList){
