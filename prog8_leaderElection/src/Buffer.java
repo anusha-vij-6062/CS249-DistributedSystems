@@ -1,5 +1,5 @@
 /**
- * Leader Election in Asyn Ring O(n^2) Algorithm
+ * Leader Election in Asyn Ring O(nlogn) Algorithm
  * CS 249 Team #2 Rashmeet Khanuja, Anusha Vijay, Steven Yen
  */
 
@@ -8,13 +8,9 @@ import java.util.Observable;
 public class Buffer extends Observable{
 
     private Message message;
-    Processor sender;
+
 
     public Buffer() {
-    }
-
-    public Processor getSender() {
-        return sender;
     }
 
     /**
@@ -33,8 +29,7 @@ public class Buffer extends Observable{
     synchronized public void setMessage(Message msg,Processor sender){
         message = msg;
         setChanged();
-        this.sender=(Processor)sender;
-        notifyObservers();
+        notifyObservers(sender);
     }
 
 }

@@ -1,5 +1,5 @@
 /**
- * Leader Election in Asyn Ring O(n^2) Algorithm
+ * Leader Election in Asyn Ring O(nlogn) Algorithm
  * CS 249 Team #2 Rashmeet Khanuja, Anusha Vijay, Steven Yen
  */
 
@@ -62,7 +62,7 @@ public class Processor implements Observer {
     public void update(Observable observable, Object o) {
         messageBuffer = (Buffer) observable;
         Message text = messageBuffer.getMessage();
-        Processor sender = messageBuffer.getSender();
+        Processor sender = (Processor) o;
 
         synchronized(messageBuffer) {
             switch (text.getMessageType()) {
