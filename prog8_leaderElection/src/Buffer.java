@@ -30,7 +30,7 @@ public class Buffer extends Observable{
      * @param msg message to be set
      */
 
-     public void setMessage(Message msg,Processor sender){
+    synchronized public void setMessage(Message msg,Processor sender){
         message = msg;
         setChanged();
         this.sender=(Processor)sender;
