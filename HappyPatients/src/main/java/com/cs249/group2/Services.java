@@ -284,6 +284,7 @@ public class Services {
         return client.queryFromDB(query).toString();
     }
 
+    // This function is called when some new record is added or deleted and has the cache policy type and value
     public Boolean updateCache(String type) throws Exception {
         //Updating the same policy
         if(type=="Deleted")
@@ -293,6 +294,10 @@ public class Services {
         JSONObject currentPolicy = new JSONObject(policy.getCachePolicy().toString());
         return updateCache(currentPolicy);
     }
+
+    // Function that updates cache with parameters JSONObject updatedPolicy
+    // This function is called when the policy server  makes a PUT call [Which was inititaed by the user making a post call to the POLICY Server ]
+    // Updates the cache
 
     public Boolean updateCache(JSONObject updatedPolicy) throws Exception {
         //Extract the old key value

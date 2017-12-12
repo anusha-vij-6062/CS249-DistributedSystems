@@ -25,6 +25,7 @@ public class RESTserviceClient {
         return response;
     }
 
+    // Makes a REST GET call
     public String restClientGET(){
         try{
             HttpURLConnection con = (HttpURLConnection) url.openConnection();

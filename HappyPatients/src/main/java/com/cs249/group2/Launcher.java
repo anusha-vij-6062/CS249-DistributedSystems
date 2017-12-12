@@ -15,7 +15,7 @@ public class Launcher{
     public Launcher() {
     }
 
-    //Not done
+    //Not done: TODO:
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("UpdatePatientRecord")
@@ -25,6 +25,7 @@ public class Launcher{
         return "Hello, world!";
     }
 
+    //Returns records of ALL patients
     @GET
     @Path("BasicInfo")
     public Response allBasicInfo() throws IOException {
@@ -41,6 +42,10 @@ public class Launcher{
         return patientBasicInfo.patientBasicInfo(request);
     }
 
+    /* Filters patients based on Gender, Last visited year and Status
+    Cache Incorported in this
+    If the policy [static JSONObject cachePolicy] has the policy type of Status,Last visited year or  Gender, then
+    the result is returned from Cache*/
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("PatientInfoFilter")
@@ -58,7 +63,7 @@ public class Launcher{
         Services updatePatientRecord= new Services();
         return updatePatientRecord.addPatientInfo(request);
     }
-
+    //Deletes patient record
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("PatientInfo/{patientID}")

@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.xml.ws.Service;
 
+// Updates cache policy. This is called by the Python policy server
 @Path("/Policy")
 public class PolicyLauncher {
     @PUT
