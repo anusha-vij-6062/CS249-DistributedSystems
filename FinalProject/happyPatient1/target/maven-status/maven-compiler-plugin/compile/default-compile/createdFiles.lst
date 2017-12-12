@@ -1,3 +1,2 @@
-com\mkyong\rest\CassandraConnector.class
-com\mkyong\rest\GetAllDataService.class
-com\mkyong\rest\HelloWorldService.class
+com/mkyong/rest/CassandraConnector.class
+com/mkyong/rest/GetAllDataService.class
