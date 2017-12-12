@@ -285,6 +285,7 @@ public class Services {
     }
 
     // This function is called when some new record is added or deleted and has the cache policy type and value
+    //Wrapper function 
     public Boolean updateCache(String type) throws Exception {
         //Updating the same policy
         if(type=="Deleted")
