@@ -27,7 +27,7 @@ def updatePolicy():
             Policy['Policy Value'] = data['Policy Value']
 
         ## Make a PUT REQUEST TO UPDATE POLICY
-        r = requests.put("http://localhost:9090/Policy/Policy", data=json.dumps(Policy))
+        r = requests.put("http://localhost:8080/Policy/Policy", data=json.dumps(Policy))
         print r.status_code
         if(r.status_code==200):
             return "SUCCESS"

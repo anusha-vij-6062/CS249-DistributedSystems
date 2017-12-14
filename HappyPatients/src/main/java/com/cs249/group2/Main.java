@@ -84,7 +84,7 @@ public class Main
     }
 
     public static void main( String[] args ) throws Exception {
-        Main m = new Main(8080,8000,"127.0.0.1","localhost",5000);
+        Main m = new Main(8080,11211,"127.0.0.1","localhost",5000);
         /*
         Type of User: Admin
                       Start New Key Space

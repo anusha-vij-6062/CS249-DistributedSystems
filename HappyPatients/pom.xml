@@ -154,5 +154,12 @@
       <version>2.0.0</version>
     </dependency>
 
+    <!--Dependency for ActiveMQ -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
   </dependencies>
 </project>

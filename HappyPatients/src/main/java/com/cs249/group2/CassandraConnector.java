@@ -11,7 +11,7 @@ public class CassandraConnector {
 
     public CassandraConnector() {
         this.connect("127.0.0.1", null);
-        session.execute("USE dataStore");
+        session.execute("USE test001");
     }
 
     private void connect(String node, Integer port) {

@@ -3,6 +3,8 @@ import com.datastax.driver.core.Session;
 import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.MemcachedConnection;
 import org.json.JSONObject;
+import org.omg.PortableInterceptor.ACTIVE;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -22,6 +24,8 @@ public class Launcher{
     public String updatePatientRecord(String patientInfo) throws Exception {
         JSONObject updateRequest= new JSONObject(patientInfo);
         Services updateRecord = new Services();
+        ActivemqConnector.sendMessageToQueue("HPEmailQueue","updated personal information");
+        ActivemqConnector.sendMessageToQueue("HPAnalyticsQueue","updated personal information");
         return updateRecord.updatePatientInfo(updateRequest);
     }
 
@@ -61,14 +65,19 @@ public class Launcher{
     @Path("NewPatientInfoRecord")
     public Response newPatientRecord(String request) throws Exception {
         Services updatePatientRecord= new Services();
+        ActivemqConnector.sendMessageToQueue("HPEmailQueue","new patient added to record");
+        ActivemqConnector.sendMessageToQueue("HPAnalyticsQueue","new patient added to record");
         return updatePatientRecord.addPatientInfo(request);
     }
+
     //Deletes patient record
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("PatientInfo/{patientID}")
     public Response deletePatientRecord(@PathParam("patientID") int patientID) throws Exception {
         Services patientBasicInfo= new Services();
+        ActivemqConnector.sendMessageToQueue("HPEmailQueue","delete personal information");
+        ActivemqConnector.sendMessageToQueue("HPAnalyticsQueue","delete personal information");
         return patientBasicInfo.deletePatient( patientID);
     }
 }
