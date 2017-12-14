@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.ws.rs.core.Response;
 import javax.xml.ws.Service;
 
@@ -14,21 +15,20 @@ import javax.xml.ws.Service;
 public class Launcher{
     public Launcher() {
     }
-
     //Not done: TODO:
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("UpdatePatientRecord")
-    public String remoteSlaveLaunchPUT(PatientBasicInfo patientInfo){
-        System.out.println("In Put");
-        System.out.println(patientInfo);
-        return "Hello, world!";
+    public String updatePatientRecord(String patientInfo) throws Exception {
+        JSONObject updateRequest= new JSONObject(patientInfo);
+        Services updateRecord = new Services();
+        return updateRecord.updatePatientInfo(updateRequest);
     }
 
     //Returns records of ALL patients
     @GET
     @Path("BasicInfo")
-    public Response allBasicInfo() throws IOException {
+    public Response allBasicInfo() throws IOException, SQLException {
         Services selectBasicInfo= new Services();
         return selectBasicInfo.selectAllBasicInfo();
     }

@@ -17,18 +17,18 @@ import java.util.*;
 public class Services {
     MemcacheConnector cacheConnector;
     Policy policy;
+    CassandraConnector client;
 
 
     public Services() {
+        client = new CassandraConnector();
         this.cacheConnector = new MemcacheConnector();
         this.policy =new Policy();
     }
 
-    Response selectAllBasicInfo() throws IOException {
+    Response selectAllBasicInfo() throws IOException, SQLException {
         CassandraConnector client = new CassandraConnector();
-        //client.connect("127.0.0.1", null);
         Session session = client.getSession();
-        //session.execute("USE dataStore");
         ResultSet result = session.execute("SELECT * FROM BasicInfo");
         System.out.println(result.toString());
         String body = "";
@@ -83,19 +83,15 @@ public class Services {
 
     Response patientBasicInfo(String request) throws Exception {
         CassandraConnector client = new CassandraConnector();
-        //client.connect("127.0.0.1", null);
-        Session session = client.getSession();
-        //session.execute("USE dataStore");
         try {
             JSONObject jsonRequest = new JSONObject(request);
             System.out.println(jsonRequest);
+            System.out.println(jsonRequest.getString("Patient Name"));
+
             String query = "SELECT * FROM BasicInfo WHERE patientname = \'" +
                     jsonRequest.getString("Patient Name") + "\' allow filtering";
             System.out.println("Query: " + query);
-            ResultSet result = session.execute(query);
-            System.out.println(result);
-            RowToJsonConverter r = new RowToJsonConverter(result);
-            JSONArray response = r.convertToJSON();
+            JSONArray response=client.queryFromDB(query);
             client.close();
             return Response.status(200).entity(response.toString()).build();
         } catch (Exception e) {
@@ -108,12 +104,7 @@ public class Services {
     Response filterPatientBasicInfo(JSONObject request) throws IOException, SQLException {
         JSONArray response = new JSONArray();
         CassandraConnector client = new CassandraConnector();
-        //client.connect("127.0.0.1", null);
-        //Session session = client.getSession();
-        //session.execute("USE dataStore");
         String query;
-        ResultSet result;
-        RowToJsonConverter r;
         try {
             String filter = request.getString("Filter Type");
             switch (filter) {
@@ -245,10 +236,7 @@ public class Services {
     }
 
     public Response deletePatient(int patientID){
-        CassandraConnector client = new CassandraConnector();
-        //client.connect("127.0.0.1", null);
         Session session = client.getSession();
-        //session.execute("USE dataStore");
         try{
             String rowCountQuery="select count(*) from BasicInfo";
             ResultSet result = session.execute(rowCountQuery);
@@ -277,28 +265,39 @@ public class Services {
     }
 
     public String queryForCache(JSONObject request) throws Exception  {
-        CassandraConnector client = new CassandraConnector();
+        JSONObject mapping = new JSONObject("{\"Last Visited Year\":\"lastvisited\"," +
+                "\"Created Date\":\"createddate\",\"DOB\":\"dob\"}");
+        System.out.println(mapping);
+
+        if(request.getString("Policy Type").equals("Last Visited Year") ||
+                request.getString("Policy Type").equals("Created Date") ||
+                request.getString("Policy Type").equals("DoB")) {
+            System.out.println("Cache policy is a date");
+            String query = "SELECT * FROM BasicInfo WHERE "+mapping.get(request.getString("Policy Type"))+" >= " +
+                    request.getString("Policy Value") + " allow filtering";
+            System.out.println("Query: " + query);
+            return client.queryFromDB(query).toString();
+        }
         String query = "SELECT * FROM BasicInfo WHERE "+request.getString("Policy Type")+" = \'" +
                 request.getString("Policy Value") + "\' allow filtering";
         System.out.println("Query: " + query);
         return client.queryFromDB(query).toString();
     }
 
-    // This function is called when some new record is added or deleted and has the cache policy type and value
-    //Wrapper function 
+
+    /* This function is called when some new record is added or deleted and has the cache policy type and value
+    //Wrapper function*/
+
     public Boolean updateCache(String type) throws Exception {
         //Updating the same policy
-        if(type=="Deleted")
-        System.out.println("Updating The same cache after a deleted Record");
-        else
-            System.out.println("Updating Cache after a newly added record which matches cache policy");
+        System.out.println("Updating Cache after a record is "+type);
         JSONObject currentPolicy = new JSONObject(policy.getCachePolicy().toString());
         return updateCache(currentPolicy);
     }
 
-    // Function that updates cache with parameters JSONObject updatedPolicy
-    // This function is called when the policy server  makes a PUT call [Which was inititaed by the user making a post call to the POLICY Server ]
-    // Updates the cache
+     /*Function that updates cache with parameters JSONObject updatedPolicy
+     This function is called when the policy server  makes a PUT call [Which was inititaed by the user making a post call to the POLICY Server ]
+     Updates the cache*/
 
     public Boolean updateCache(JSONObject updatedPolicy) throws Exception {
         //Extract the old key value
@@ -330,5 +329,147 @@ public class Services {
     }
 
 
+    public String updatePatientInfo(JSONObject updateRequest) throws Exception {
+        String oldRecord;
+        String newRecord;
+        int patientID;
+        try {
+            patientID=updateRequest.getInt("Patient ID");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            String postBody="\"{\n\t\"Patient ID\":23,\n\t\"Patient Name\":\"Ji Klink\",\n\t\"" +
+                    "Last Visited\":\"\",\n\t\"Status\":\"Ongoing\",\n\t\"DOB\":" +
+                    "\"\",\n\t\"Address\":\"\",\n\t\"Created Date\":\n}\"";
+            return "POST BODY Mandatory Field \"Patient ID\"\n"+"Rest Field ID are\n"+postBody;
+        }
+        System.out.println(updateRequest.keySet());
+        updateRequest.keySet();
+        String updateQueryHead = "UPDATE BasicInfo SET ";
+        String updateQueryTail = " WHERE patientid="+patientID;
+        String setBody="";
+        int comm=0;
 
+        //update BasicInfo set gender='Female', address = 'nowhwere' where patientid=23;
+        for (String temp: updateRequest.keySet()){
+            switch (temp){
+                case "Status":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                        setBody=setBody+"status=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",status=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+
+                case "Patient Name":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"patientname=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",patientname=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+                case "Address":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"address=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",address=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+
+                case "Last Visited":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"lastvisited=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",lastvisited=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+                case "Created Date":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"createddate=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",createddate=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+
+                case "Dob":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"dob=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",dob=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+                case "Gender":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"gender=\'"+updateRequest.get(temp)+"\'";
+                        }
+                        else setBody=setBody+",gender=\'"+updateRequest.get(temp)+"\'";
+                    }
+                    comm++;
+                    break;
+
+
+                case "Phone Number":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else {
+                        if (comm==0){
+                            setBody=setBody+"phonenumber="+updateRequest.get(temp);
+                        }
+                        else setBody=setBody+",phonenumber="+updateRequest.get(temp);
+                    }
+                    comm++;
+                    break;
+                default:
+                    System.out.println("Skipping "+temp);
+            }
+            System.out.println(updateRequest.get(temp));
+        }
+        String queryWithPid= "SELECT * FROM BasicInfo where patientid = "+patientID;
+        System.out.println(queryWithPid);
+        JSONArray response =client.queryFromDB(queryWithPid);
+        oldRecord=response.toString();
+        String finalQuery=updateQueryHead+setBody+updateQueryTail;
+        System.out.println("FINAL QUERY\n"+finalQuery);
+        Session session=client.getSession();
+        session.execute(finalQuery);
+        newRecord = client.queryFromDB(queryWithPid).toString();
+        updateCache("Update");
+        return "Updated Info from\n"+oldRecord+"To\n"+newRecord;
+
+    }
 }
