@@ -1,0 +1,43 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="happyPatient1:war exploded">
+    <output-path>$PROJECT_DIR$/target/happyPatient1</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="happyPatient1" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.datastax.cassandra:cassandra-driver-core:3.1.2" />
+          <element id="library" level="project" name="Maven: io.netty:netty-handler:4.0.37.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-buffer:4.0.37.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-common:4.0.37.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-transport:4.0.37.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-codec:4.0.37.Final" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
+          <element id="library" level="project" name="Maven: io.dropwizard.metrics:metrics-core:3.1.2" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jnr-ffi:2.0.7" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jffi:1.2.10" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jffi:native:1.2.10" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm:5.0.3" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-commons:5.0.3" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-analysis:5.0.3" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-tree:5.0.3" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm-util:5.0.3" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jnr-x86asm:1.0.2" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jnr-posix:3.0.27" />
+          <element id="library" level="project" name="Maven: com.github.jnr:jnr-constants:0.9.0" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-server:1.8" />
+          <element id="library" level="project" name="Maven: asm:asm:3.1" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-core:1.8" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/happyPatient1/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="happyPatient1/web/Web" />
+    </root>
+  </artifact>
+</component>
