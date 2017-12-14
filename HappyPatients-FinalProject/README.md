@@ -4,6 +4,8 @@
 - Apache ActiveMQ
 - Cassandra 3.9.0
 - Memcache
+- java version "1.8.0_144"
+- Python 2.7
 
 # Synopsis
 <ul>
@@ -24,8 +26,23 @@ Users can add, delete, update, and retrieve patient information in this applicat
 7. Start the HappyPatients project by running Main. This will start all services by calling their constructors. The HappyPatients app will be listening on port 8080.<br>
 
 # Input
+To initialize the Cassandra database for this project. Create a keyspace 'test001' and a table 'BasicInfo" with the following commands in sql shell:
+```
+CREATE KEYSPACE test001 WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 3};
+```
+
+```
+create table BasicInfo(id int,PatientID int,PatientName text,DoB timestamp,Address text,Gender text,PhoneNumber int,CreatedDate timestamp,LastVisited timestamp, Status text, primary key(PatientID));
+```
+
+```
+COPY BasicInfo (id,PatientID,PatientName,DoB,Address,Gender,PhoneNumber,CreatedDate,LastVisited,Status) FROM 'BasicInfo.csv' with HEADER = TRUE;
+```
+
+Once the database is initialized, patient records can be retrieved, edited, deleted, and added. See the PowerPoint slides for the endpoints and the appropriate request bodies and expected response.
 
 # Output
 
+See the PowerPoint presentation for the expected responses for different requests.
 
 
