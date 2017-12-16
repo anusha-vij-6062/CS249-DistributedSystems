@@ -13,120 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="928">
-              <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1775">
-              <caret line="86" column="36" lean-forward="false" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivemqConnector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/ActivemqConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Launcher.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Policy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Policy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-              <folding>
-                <element signature="e#155#156#0" expanded="true" />
-                <element signature="e#201#202#0" expanded="true" />
-                <element signature="e#249#250#0" expanded="true" />
-                <element signature="e#298#299#0" expanded="true" />
-                <element signature="e#604#605#0" expanded="true" />
-                <element signature="e#638#639#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PolicyLauncher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/PolicyLauncher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Services.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6900">
-              <caret line="276" column="37" lean-forward="false" selection-start-line="276" selection-start-column="37" selection-end-line="276" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MemcacheConnector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatientBasicInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/PatientBasicInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="11" lean-forward="false" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CassandraConnector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CassandraConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="25">
+              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,22 +52,22 @@
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Server.java" />
         <option value="/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/CustomerServer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/PatientBasicInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/config.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/RESTservices.java" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/RowToJsonConverter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Policy.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/PolicyLauncher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/RESTserviceClient.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/CassandraConnector.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/ActivemqConnector.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/ActivemqConnector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/CassandraConnector.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/PatientBasicInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/RowToJsonConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java" />
       </list>
     </option>
   </component>
@@ -201,10 +92,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="3832" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="2064" />
+    <option name="height" value="1128" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -221,6 +112,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,9 +152,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -445,14 +336,21 @@
       <workItem from="1512705139106" duration="30156000" />
       <workItem from="1512940683580" duration="40966000" />
       <workItem from="1513225389536" duration="3781000" />
+      <workItem from="1513324309628" duration="8598000" />
+      <workItem from="1513368479466" duration="4774000" />
+      <workItem from="1513376031493" duration="3552000" />
+      <workItem from="1513380522562" duration="4844000" />
+      <workItem from="1513387862694" duration="1904000" />
+      <workItem from="1513398993834" duration="7318000" />
+      <workItem from="1513409243632" duration="693000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88184000" />
+    <option name="totallyTimeSpent" value="119867000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="3832" y="-8" width="2064" height="1128" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32933334" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
@@ -464,18 +362,18 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16162162" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26547456" sideWeight="0.496875" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6707921" sideWeight="0.496875" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6423659" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3897497" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4445664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2967819" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2583784" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29579207" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21233569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -486,7 +384,7 @@
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32549506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -534,25 +432,19 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
-          <line>216</line>
+          <line>395</line>
           <properties />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
-          <line>245</line>
-          <properties />
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java</url>
-          <line>33</line>
+          <line>31</line>
           <properties />
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
-          <line>174</line>
+          <line>339</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
@@ -564,76 +456,40 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
-          <line>349</line>
+          <line>578</line>
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
+          <line>210</line>
+          <properties />
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
+          <line>209</line>
+          <properties />
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java</url>
+          <line>44</line>
+          <properties />
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java</url>
+          <line>438</line>
+          <properties />
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="46" />
+      <option name="time" value="52" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CustomerServer.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="83" column="17" lean-forward="false" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CustomerServer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.2.3.v20140905/jetty-util-9.2.3.v20140905-sources.jar!/org/eclipse/jetty/util/component/AbstractLifeCycle.java" />
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="83" column="17" lean-forward="false" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CustomerServer.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.2.3.v20140905/jetty-server-9.2.3.v20140905-sources.jar!/org/eclipse/jetty/server/handler/AbstractHandler.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/9.2.3.v20140905/jetty-util-9.2.3.v20140905-sources.jar!/org/eclipse/jetty/util/component/AbstractLifeCycle.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/ResourceConfig.java" />
@@ -664,13 +520,6 @@
     <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/model/internal/JavaResourceMethodDispatcherProvider.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/model/ResourceMethodInvoker.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/model/internal/ResourceMethodInvocationHandlerFactory.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/net/spy/spymemcached/2.12.3/spymemcached-2.12.3.jar!/net/spy/memcached/MemcachedClient.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="480" column="0" lean-forward="false" selection-start-line="480" selection-start-column="0" selection-end-line="480" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -694,34 +543,168 @@
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip!/java/lang/AbstractStringBuilder.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip!/java/lang/StringBuffer.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip!/java/io/StringWriter.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/json/json/20160212/json-20160212.jar!/org/json/JSONObject.class">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/model/internal/AbstractJavaResourceMethodDispatcher.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="353" column="0" lean-forward="false" selection-start-line="353" selection-start-column="0" selection-end-line="353" selection-end-column="0" />
-          <folding>
-            <element signature="e#13560#13561#0" expanded="true" />
-            <element signature="e#13621#13622#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/RESTserviceClient.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/net/spy/spymemcached/2.12.3/spymemcached-2.12.3.jar!/net/spy/memcached/MemcachedClient.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
-          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        <state relative-caret-position="150">
+          <caret line="59" column="13" lean-forward="false" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/com.cs249.group2">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>com.cs249.group2</OriginalElement>
+          <nodes>
+            <node x="" y="">com.cs249.group2.Policy</node>
+            <node x="" y="">com.cs249.group2.MemcacheConnector</node>
+            <node x="" y="">com.cs249.group2.ActivemqConnector</node>
+            <node x="" y="">com.cs249.group2.Main</node>
+            <node x="" y="">com.cs249.group2.Launcher</node>
+            <node x="" y="">com.cs249.group2.CassandraConnector</node>
+            <node x="" y="">com.cs249.group2.PolicyLauncher</node>
+            <node x="" y="">com.cs249.group2.RowToJsonConverter</node>
+            <node x="" y="">com.cs249.group2.PatientBasicInfo</node>
+            <node x="" y="">com.cs249.group2.RESTserviceClient</node>
+            <node x="" y="">com.cs249.group2.Services</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="410.0" y="187.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/9.2.3.v20140905/jetty-servlet-9.2.3.v20140905.jar!/org/eclipse/jetty/servlet/ServletHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="456" column="0" lean-forward="false" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/9.2.3.v20140905/jetty-servlet-9.2.3.v20140905.jar!/org/eclipse/jetty/servlet/ServletHolder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="570" column="0" lean-forward="false" selection-start-line="570" selection-start-column="0" selection-end-line="570" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/containers/jersey-container-servlet-core/2.7/jersey-container-servlet-core-2.7.jar!/org/glassfish/jersey/servlet/WebComponent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="145" column="0" lean-forward="false" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-common/2.7/jersey-common-2.7.jar!/org/glassfish/jersey/process/internal/RequestScope.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-common/2.7/jersey-common-2.7.jar!/org/glassfish/jersey/internal/Errors.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7.jar!/org/glassfish/jersey/server/ServerRuntime.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="268" column="0" lean-forward="false" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7.jar!/org/glassfish/jersey/server/model/ResourceMethodInvoker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="257" column="0" lean-forward="false" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7.jar!/org/glassfish/jersey/server/model/internal/ResourceMethodInvocationHandlerFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7.jar!/org/glassfish/jersey/server/model/internal/AbstractJavaResourceMethodDispatcher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/json/json/20160212/json-20160212.jar!/org/json/JSONObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/ActivemqConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
+            <element signature="n#!!doc" expanded="false" />
             <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/jersey/core/jersey-server/2.7/jersey-server-2.7-sources.jar!/org/glassfish/jersey/server/model/internal/AbstractJavaResourceMethodDispatcher.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/RowToJsonConverter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CassandraConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        <state relative-caret-position="275">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1708">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/PatientBasicInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-879">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Policy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#638#639#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -736,91 +719,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/RESTserviceClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6900">
-          <caret line="276" column="37" lean-forward="false" selection-start-line="276" selection-start-column="37" selection-end-line="276" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Policy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-          <folding>
-            <element signature="e#155#156#0" expanded="true" />
-            <element signature="e#201#202#0" expanded="true" />
-            <element signature="e#249#250#0" expanded="true" />
-            <element signature="e#298#299#0" expanded="true" />
-            <element signature="e#604#605#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/CassandraConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/PatientBasicInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="11" lean-forward="false" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        <state relative-caret-position="475">
+          <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/MemcacheConnector.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/RowToJsonConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        <state relative-caret-position="217">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Services.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15200">
+          <caret line="608" column="0" lean-forward="true" selection-start-line="608" selection-start-column="0" selection-end-line="608" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="101" column="41" lean-forward="true" selection-start-line="101" selection-start-column="41" selection-end-line="101" selection-end-column="73" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#newPatientRecord#0;class#Launcher#0" expanded="false" />
+            <element signature="method#updatePatientRecord#0;class#Launcher#0" expanded="false" />
+            <element signature="method#deletePatientRecord#0;class#Launcher#0" expanded="false" />
+            <element signature="method#patientInfo#0;class#Launcher#0" expanded="false" />
+            <element signature="method#filterPatientInfo#0;class#Launcher#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1775">
-          <caret line="86" column="36" lean-forward="false" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/ActivemqConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cs249/group2/Launcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="25">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

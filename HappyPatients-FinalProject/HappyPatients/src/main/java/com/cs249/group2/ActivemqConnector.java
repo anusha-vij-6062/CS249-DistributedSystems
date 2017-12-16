@@ -1,3 +1,8 @@
+/**
+ * CS249 - Group #2
+ * Connector for interacting with ActiveMQ, based on tutorial at:
+ * http://activemq.apache.org/hello-world.html
+ */
 package com.cs249.group2;
 
 //imports for activemq
@@ -26,31 +31,28 @@ public class ActivemqConnector {
         ActiveMQConnectionFactory connectFact = new ActiveMQConnectionFactory("tcp://localhost:61616");
 
         try {
-            // First create a connection
+            //create a connection
             Connection connection = connectFact.createConnection();
             connection.start();
 
-            // Now create a Session
+            //create a Session
             javax.jms.Session session = connection.createSession(false,
                     javax.jms.Session.AUTO_ACKNOWLEDGE);
 
-            // Let's create a queue. If the queue exist,
-            // it will return that
+            // Create a queue if it does not exist.
             Destination destination = session.createQueue(destQueue);
 
-            // Create a MessageProducer from
-            // the Session to the Topic or Queue
+            // Create a message producer
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 
-            // Create a messages for the current queue
-            //String text = "New req to endpoint! with param= "+msgToSend;
+            // Create the message to be sent to the queue
             TextMessage message = session.createTextMessage(msgToSend);
 
             // Send the message to queue
             producer.send(message);
 
-            // Do the cleanup
+            // Close the connections.
             session.close();
             connection.close();
 

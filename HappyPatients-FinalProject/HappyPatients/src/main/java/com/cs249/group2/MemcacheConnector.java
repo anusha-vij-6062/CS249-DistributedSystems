@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import net.spy.memcached.*;
 
-
 public class MemcacheConnector {
     private static int memCachePort;
     private static String serverAddress;
@@ -48,10 +47,9 @@ public class MemcacheConnector {
             return false;
     }
 
-
     //Memcached set command is used to set a new value to a new or existing key.
    public boolean setCache(String key,String value){
-        System.out.println(mcc.set(key,900,value).getStatus());
+        System.out.println(mcc.set(key,900,value).getStatus()); //900 is expireation time,k
         if(mcc.get(key).equals(value)){
             System.out.println("Successfully Set Key!");
             return true;

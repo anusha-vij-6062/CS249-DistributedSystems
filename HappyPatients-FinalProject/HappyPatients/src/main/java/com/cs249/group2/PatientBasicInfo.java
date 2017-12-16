@@ -1,7 +1,8 @@
-package com.cs249.group2;
-/*
-['PatientID','PatientName','DoB','Address','Gender','PhoneNumber','CreatedDate','LastVisited','Status']
+/**
+ * CS249 - Group #2
+ * Class definition for Patient Objects that stores all information of a specific patient
  */
+package com.cs249.group2;
 
 import org.json.JSONObject;
 
@@ -16,20 +17,16 @@ public class PatientBasicInfo {
     private int phoneNumber;
     private String createdDate;
     private String status;
+    private String symptom;
+    private String diagnosis;
+    private String treatment;
 
-    public PatientBasicInfo(int patientID, String patientName, String doB, String lastVisted, String address, String gender, int phoneNumber, String createdDate, String status) {
-        this.patientID = patientID;
-        this.patientName = patientName;
-        this.doB = doB;
-        this.lastVisted = lastVisted;
-        this.address = address;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
-        this.createdDate = createdDate;
-        this.status = status;
-        this.id=this.patientID;
-    }
-
+    /**
+     * Takes the request JSON string and puts its field into patient basic info's fields.
+     * @param request String representation of the JSON (or array of JSON) object
+     *  ['PatientID','PatientName','DoB','Address','Gender','PhoneNumber','CreatedDate','LastVisited','Status','Symptom','Diagnosis','Treatment']
+     * @param id patient id
+     */
     public PatientBasicInfo(String request,int id) {
         JSONObject jsonRequest = new JSONObject(request);
         this.patientID=id;
@@ -42,6 +39,9 @@ public class PatientBasicInfo {
         this.doB=jsonRequest.getString("DOB");
         this.status=jsonRequest.getString("Status");
         this.phoneNumber=jsonRequest.getInt("Phone Number");
+        this.symptom=jsonRequest.getString("Symptom");
+        this.diagnosis = jsonRequest.getString("Diagnosis");
+        this.treatment = jsonRequest.getString("Treatment");
     }
 
     public int getPatientID() {
@@ -79,4 +79,10 @@ public class PatientBasicInfo {
     public String getStatus() {
         return status;
     }
+
+    public String getSymptom() { return symptom; }
+
+    public String getDiagnosis() { return diagnosis;}
+
+    public String getTreatment(){ return treatment;}
 }

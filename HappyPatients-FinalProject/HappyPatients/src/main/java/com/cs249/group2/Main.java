@@ -1,3 +1,7 @@
+/**
+ * CS249 - Group #2
+ * Initializes the services
+ */
 package com.cs249.group2;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;

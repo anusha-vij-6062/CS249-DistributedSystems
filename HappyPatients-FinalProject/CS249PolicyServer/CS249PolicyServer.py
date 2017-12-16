@@ -8,11 +8,11 @@ app = Flask(__name__)
 Policy = {"Policy Type": "Status", "Policy Value": "ICU"}
 
 
-@app.route('/Policy')
-def hello_world():
+@app.route('/Policy', methods=['GET'])
+def retrievePolicy():
     return json.dumps(Policy)
 
-@app.route('/updatePolicy', methods=['POST'])
+@app.route('/Policy', methods=['POST'])
 def updatePolicy():
     data = json.loads(request.data)
     print data.keys()

@@ -26,6 +26,10 @@ public class Services {
         this.policy =new Policy();
     }
 
+    /**
+     * Helper method for endpoint /Crew/AllRecords
+     * @return formated table with all the patient's records
+     */
     Response selectAllBasicInfo() throws IOException, SQLException {
         CassandraConnector client = new CassandraConnector();
         Session session = client.getSession();
@@ -81,13 +85,31 @@ public class Services {
         return Response.status(200).entity(response).build();
     }
 
+    /**
+     * Used to retrieve info regarding one patient. Checks the Cache first
+     * to see if the patient is in the cache. Queries Cassandra if not.
+     * @param request JSON String of format {"Patient Name":"Alan Caver"}
+     * @return response object of type "javax.ws.rs.core.Response;"
+     * @throws Exception
+     */
     Response patientBasicInfo(String request) throws Exception {
+
+        JSONObject jsonRequest = new JSONObject(request);
+        System.out.println(jsonRequest);
+        String patName = jsonRequest.getString("Patient Name");
+        System.out.println(patName);
+
+        //check cache first to see if patient there
+        JSONObject patRecordFromCache = lookupJsonArrByName(patName,getAllFromCache());
+        if(patRecordFromCache!=null){
+            System.out.println("Cache hit!");
+            return Response.status(200).entity(patRecordFromCache.toString()).build();
+        }
+        System.out.println("Cache miss! Query Cassandra!");
+
+
         CassandraConnector client = new CassandraConnector();
         try {
-            JSONObject jsonRequest = new JSONObject(request);
-            System.out.println(jsonRequest);
-            System.out.println(jsonRequest.getString("Patient Name"));
-
             String query = "SELECT * FROM BasicInfo WHERE patientname = \'" +
                     jsonRequest.getString("Patient Name") + "\' allow filtering";
             System.out.println("Query: " + query);
@@ -101,6 +123,55 @@ public class Services {
         }
     }
 
+    /**
+     * Helper method that returns everything in Cache
+     * @return content/value of cache as a JSONArray
+     * returns an empty JSONArray if not found.
+     */
+    private JSONArray getAllFromCache(){
+
+        JSONArray response = new JSONArray();
+        String cacheResponse = this.cacheConnector.getFromCache(policy.
+                getCachePolicy("Policy Value"));
+
+        if(cacheResponse !="-1"){
+            System.out.println("Sucessfully go cache content!");
+            System.out.println(cacheResponse);
+            response = new JSONArray(cacheResponse); //constructs a json array from string
+            System.out.println("JSON Result Queried from Cache");
+        }
+        //If the policy asks to query from cache but it is  not present, then add to cache.
+        else if (cacheResponse =="-1") {
+            System.out.println("Failed to retrieve cache content");
+        }
+
+        return response;
+    }
+
+    /**
+     * Helper method that checks the JSONArray to see if it has a JSONObject with name field = patName
+     * returns null otherwise.
+     * @param patName name of patient we'd like info for
+     * @param resultsArr array of JSON objects each of which represents a patient's record
+     * @return JSON object with info for the patient we're interested in.
+     */
+    private JSONObject lookupJsonArrByName(String patName, JSONArray resultsArr){
+        for(Object jObj: resultsArr){
+            JSONObject result = (JSONObject) jObj;
+            if(result.getString("patientname").compareToIgnoreCase(patName)==0){
+                return result;
+            }
+        }
+        System.out.println("Patient not in cache");
+
+        return null;
+
+    }
+
+    /**
+     * Filters the patient info table based on differet fields and valeus
+     * @param request of the form {"Filter Type": "Gender", "Filter Value": "Male"}
+     */
     Response filterPatientBasicInfo(JSONObject request) throws IOException, SQLException {
         JSONArray response = new JSONArray();
         CassandraConnector client = new CassandraConnector();
@@ -172,7 +243,7 @@ public class Services {
                     System.out.println("Query: " + query);
                     if(policy.getCachePolicy("Policy Type").equals(filter)){
                         System.out.println(request.getString("Filter Value"));
-                        String cacheResponse = this.cacheConnector.getFromCache("ICU");
+                        String cacheResponse = this.cacheConnector.getFromCache("ICU"); //ICU should be replaced with policy.getFromCache("Policy Type")
                         if (cacheResponse != "-1") {
                             System.out.println("Cache HIT!");
                             response = new JSONArray(cacheResponse);
@@ -189,6 +260,19 @@ public class Services {
                         response =client.queryFromDB(query);
                         break;
                     }
+                case "Diagnosis":
+                    query = "SELECT * FROM BasicInfo WHERE diagnosis = \'" +
+                            request.getString("Filter Value") + "\' allow filtering";
+                    System.out.println("Query: " + query);
+                    response =client.queryFromDB(query);
+                    break;
+                case "Treatment":
+                    query = "SELECT * FROM BasicInfo WHERE treatment = \'" +
+                            request.getString("Filter Value") + "\' allow filtering";
+                    System.out.println("Query: " + query);
+                    response =client.queryFromDB(query);
+                    break;
+
             }
             return Response.status(200).entity(response.toString()).build();
         } catch (Exception e) {
@@ -198,7 +282,13 @@ public class Services {
         }
     }
 
-
+    /**
+     * Called when /Crew/NewPatientInfoRecord endpoint is hit
+     * rev: added new patient fields, k
+     * @param request: String representation of the JSON object in request
+     * @return
+     * @throws Exception
+     */
     Response addPatientInfo(String request) throws Exception {
         CassandraConnector client = new CassandraConnector();
         Session session = client.getSession();
@@ -209,11 +299,11 @@ public class Services {
             int lastID=r.getInt("system.max(patientid)");
             PatientBasicInfo newRecord=new PatientBasicInfo(request,lastID+1);
             String query = "INSERT INTO BasicInfo (id,patientid,address,createddate,dob,gender,lastvisited," +
-                    "patientname,phonenumber,status) VALUES (";
+                    "patientname,phonenumber,status,symptom,diagnosis,treatment) VALUES (";
             query = query+newRecord.getPatientID()+","+newRecord.getPatientID()+",'"+newRecord.getAddress()+"','"+
                     newRecord.getCreatedDate()+"','"+newRecord.getDoB()+"','"+newRecord.getGender()+"','"+
                     newRecord.getLastVisted()+"','"+newRecord.getPatientName()+"',"+newRecord.getPhoneNumber()
-                    +",'"+newRecord.getStatus()+"')";
+                    +",'"+newRecord.getStatus()+"','"+newRecord.getSymptom()+"','"+newRecord.getDiagnosis()+"','"+newRecord.getTreatment()+"')";
             System.out.println(query);
             session.execute(query);
             result=session.execute(idQuery);
@@ -235,6 +325,10 @@ public class Services {
         }
     }
 
+    /**
+     * Deletes the record of the patient with specified patientID
+     * @param patientID id of patient to be removed
+     */
     public Response deletePatient(int patientID){
         Session session = client.getSession();
         try{
@@ -250,11 +344,9 @@ public class Services {
             r=result.one();
             Long rowCountNew =(Long) r.getObject(0);
             if(rowCountNew<rowCountOld) {
-                client.close();
                 updateCache("Deleted");
                 return Response.status(200).entity("Patient Record Deleted!").build();
             }
-            client.close();
             return Response.status(405).entity("Unable to delete patient Record").build();
         } catch(Exception e)
         {
@@ -284,21 +376,18 @@ public class Services {
         return client.queryFromDB(query).toString();
     }
 
-
     /* This function is called when some new record is added or deleted and has the cache policy type and value
     //Wrapper function*/
-
     public Boolean updateCache(String type) throws Exception {
         //Updating the same policy
         System.out.println("Updating Cache after a record is "+type);
-        JSONObject currentPolicy = new JSONObject(policy.getCachePolicy().toString());
+        JSONObject currentPolicy = policy.getCachePolicy();
         return updateCache(currentPolicy);
     }
 
      /*Function that updates cache with parameters JSONObject updatedPolicy
      This function is called when the policy server  makes a PUT call [Which was inititaed by the user making a post call to the POLICY Server ]
      Updates the cache*/
-
     public Boolean updateCache(JSONObject updatedPolicy) throws Exception {
         //Extract the old key value
         System.out.println("OLD:-\n"+policy.getCachePolicy());
@@ -328,7 +417,10 @@ public class Services {
         return false;
     }
 
-
+    /**
+     * Updates information for an existing patient in Cassandra DB
+     * @param updateRequest JSON specifying the new field and values of the patient
+     */
     public String updatePatientInfo(JSONObject updateRequest) throws Exception {
         String oldRecord;
         String newRecord;
@@ -441,6 +533,50 @@ public class Services {
                     comm++;
                     break;
 
+                case "Symptom":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else{
+                        if( comm == 0){
+                            setBody=setBody + "symptom=\'"+updateRequest.get(temp)+"\'";
+                        }else{
+                            setBody=setBody+",symptom=\'"+updateRequest.get(temp)+"\'";
+                        }
+                    }
+                    comm++;
+                    break;
+
+                case "Diagnosis":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+
+                    else{
+
+                        if( comm == 0){
+                            setBody=setBody + "diagnosis=\'"+updateRequest.get(temp)+"\'";
+                        }else{
+                            setBody=setBody+",diagnosis=\'"+updateRequest.get(temp)+"\'";
+                        }
+                    }
+                    comm++;
+                    break;
+
+                case "Treatment":
+                    if(updateRequest.get(temp).equals("")){
+                        break;
+                    }
+                    else{
+
+                        if( comm == 0){
+                            setBody=setBody + "treatment=\'"+updateRequest.get(temp)+"\'";
+                        }else{
+                            setBody=setBody+",treatment=\'"+updateRequest.get(temp)+"\'";
+                        }
+                    }
+                    comm++;
+                    break;
 
                 case "Phone Number":
                     if(updateRequest.get(temp).equals("")){

@@ -1,3 +1,4 @@
+
 package com.cs249.group2;
 
 import com.datastax.driver.core.ColumnDefinitions;
@@ -21,6 +22,11 @@ public class RowToJsonConverter {
         this.resultSet = r;
     }
 
+    /**
+     * Converts the datastax result set into array of JSON
+     * @return Array of json, where name is that from the database table (colume title)
+     * @throws SQLException
+     */
     JSONArray convertToJSON() throws SQLException {
         jsonResponse=new JSONArray();
         while(!resultSet.isExhausted()){

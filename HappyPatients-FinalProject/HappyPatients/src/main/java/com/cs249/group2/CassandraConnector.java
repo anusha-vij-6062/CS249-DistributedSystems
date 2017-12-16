@@ -1,3 +1,8 @@
+/**
+ * CS249 - Group #2
+ * CassandraConnector based on tutorial at:
+ * http://www.baeldung.com/cassandra-with-java
+ */
 package com.cs249.group2;
 import com.datastax.driver.core.*;
 import org.json.JSONArray;
@@ -11,7 +16,7 @@ public class CassandraConnector {
 
     public CassandraConnector() {
         this.connect("127.0.0.1", null);
-        session.execute("USE test001");
+        session.execute("USE hpkeyspace");
     }
 
     private void connect(String node, Integer port) {
@@ -32,6 +37,12 @@ public class CassandraConnector {
         cluster.close();
     }
 
+    /**
+     * Returns the result of the query as an array of JSON.
+     * @param query
+     * @return array of json where field name is that in the database (colume title)
+     * @throws SQLException
+     */
     JSONArray queryFromDB(String query) throws SQLException {
         ResultSet result = session.execute(query);
         System.out.println("Result From Database In Result Sets\n" + result);
