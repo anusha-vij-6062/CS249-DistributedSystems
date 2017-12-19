@@ -1,0 +1,36 @@
+<form>
+  "Filter Type <input type="text" ng-model="FilterType">
+  filter value: <input type="text" ng-model="FilterValue">
+  <button ng-click="getFilterResult()">submit</button>
+</form>
+
+
+<table class="table" ng-if="flag">
+  <thead>
+  <tr>
+    <th>Patient Id</th>
+    <th>Patient Name</th>
+    <th>Gender</th>
+    <th>Treatment </th>
+    <th>Phone Number</th>
+    <th>Last Visited</th>
+    <th>Status</th>
+    <th>Diagnosis</th>
+    <th>Symptom</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="info" ng-repeat="i in result">
+    <td>{{ i.patientid }}</td>
+    <td>{{i.patientname}}</td>
+    <td>{{i.gender}}</td>
+    <td>{{i.treatment}}</td>
+    <td>{{i.phonenumber}}</td>
+    <td>{{i.lastvisited}}</td>
+    <td>{{i.status}}</td>
+    <td>{{i.diagnosis}}</td>
+    <td>{{i.symptoms}}</td>
+  </tr>
+  </tbody>
+</table>
