@@ -59,9 +59,9 @@ Process ID :5	 Parent ID: 2	 Children : 4
 ##Contributors
 
 1. Tanuja Phadake for providing the skeletal code for the DFS spanning tree program.<br>
-2. Steven Yen  SJSU ID: 006147401 <br>
-3. Rashmeet Kaur Khanuja SJSU ID: 012409982 <br>
-4. Anusha Vijay SJSU ID: 010826062 <br>
+2. Steven Yen<br>
+3. Rashmeet Kaur Khanuja<br>
+4. Anusha Vijay<br>
 
 ###File List
 1.IBuffer.java
